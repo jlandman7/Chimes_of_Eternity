@@ -6,40 +6,48 @@
 #include <iostream>
 #include <chrono>
 #include <vector>
-#include <cstdlib>
+#include <random>
 #include <cmath>
+#include <algorithm>
 
+// Gaussian light profile centered at 4.5 seconds (9s total lifetime)
 struct AnimatedLight {
     glm::vec3 position;
     glm::vec3 color;
-    float peak_intensity = 1.0f;
     float age = 0.0f;
-    float lifetime = 5.0f;
-    float rise_time = 1.2f;
-    float decay_time = 2.0f;
+    float lifetime = 9.0f;        // Mean duration (~9s)
+    float peak_intensity = 0.7f;  // Target max intensity (~70%)
+    float peak_time = 4.5f;       // Gaussian bell curve peak at 4.5s
+    float sigma = 1.50f;          // Spread (~6-sigma spans 0s to 9s)
 
     float get_current_intensity() const {
         if (age < 0.0f || age > lifetime) return 0.0f;
-        if (age < rise_time) {
-            float t = age / rise_time;
-            return peak_intensity * (t * t * (3.0f - 2.0f * t)); // Smoothstep rise
-        } else if (age > (lifetime - decay_time)) {
-            float t = (lifetime - age) / decay_time;
-            return peak_intensity * (t * t * (3.0f - 2.0f * t)); // Smoothstep decay
-        }
-        return peak_intensity;
+        float diff = age - peak_time;
+        // Gaussian envelope: I(t) = A * exp(-(t - t_peak)^2 / (2 * sigma^2))
+        return peak_intensity * std::exp(-(diff * diff) / (2.0f * sigma * sigma));
     }
 
     bool is_dead() const { return age >= lifetime; }
 };
 
-// Helper to generate rich random colors
-glm::vec3 generate_vibrant_color() {
-    float h = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
-    float s = 0.65f + 0.35f * (static_cast<float>(rand()) / static_cast<float>(RAND_MAX));
-    float v = 0.85f + 0.15f * (static_cast<float>(rand()) / static_cast<float>(RAND_MAX));
+// Independent stochastic timer using an exponential inter-arrival distribution
+struct ProcessTimer {
+    float time_remaining = 0.0f;
 
-    // HSV to RGB conversion
+    void sample_next(std::mt19937& gen, std::exponential_distribution<float>& dist) {
+        time_remaining = dist(gen); // Mean interval = 30.0 seconds
+    }
+};
+
+static glm::vec3 generate_vibrant_color(std::mt19937& gen) {
+    std::uniform_real_distribution<float> hue_dist(0.0f, 1.0f);
+    std::uniform_real_distribution<float> sat_dist(0.60f, 0.95f);
+    std::uniform_real_distribution<float> val_dist(0.75f, 1.00f);
+
+    float h = hue_dist(gen);
+    float s = sat_dist(gen);
+    float v = val_dist(gen);
+
     int i = static_cast<int>(h * 6.0f);
     float f = h * 6.0f - i;
     float p = v * (1.0f - s);
@@ -81,10 +89,28 @@ int main() {
 
         glEnable(GL_DEPTH_TEST);
 
-        std::vector<AnimatedLight> lights;
+        // Random Number Generators & Standard Distributions
+        std::random_device rd;
+        std::mt19937 gen(rd());
 
+        // Poisson process rate lambda = 1.0 / 30.0 (mean interval = 30s per thread)
+        std::exponential_distribution<float> arrival_dist(1.0f / 40.0f);
+        
+        // Gaussian distributions for light properties (centered around 9s total lifetime)
+        std::normal_distribution<float> duration_dist(9.0f, 1.2f);      // Mean 9.0s duration
+        std::normal_distribution<float> intensity_dist(0.70f, 0.12f);   // Gaussian centered at 70% max
+        std::uniform_real_distribution<float> pos_dist(-0.45f, 0.45f);
+        std::uniform_real_distribution<float> height_dist(1.1f, 1.7f);
+
+        // 8 parallel independent process timers
+        constexpr int NUM_TIMERS = 8;
+        ProcessTimer timers[NUM_TIMERS];
+        for (int i = 0; i < NUM_TIMERS; ++i) {
+            timers[i].sample_next(gen, arrival_dist);
+        }
+
+        std::vector<AnimatedLight> lights;
         auto last_frame_time = std::chrono::steady_clock::now();
-        float next_event_timer = 1.0f; // Initial delay before first drop
 
         while (!window.should_close()) {
             window.poll_events();
@@ -103,56 +129,44 @@ int main() {
 
             float aspect = static_cast<float>(display_w) / static_cast<float>(display_h > 0 ? display_h : 1);
 
-            // Update drop event scheduler
-            next_event_timer -= dt;
-            if (next_event_timer <= 0.0f) {
-                bool is_dark_period = (rand() % 100) < 25; // 25% chance of silence/darkness period
+            // Step process timers
+            for (int i = 0; i < NUM_TIMERS; ++i) {
+                timers[i].time_remaining -= dt;
 
-                if (is_dark_period) {
-                    // Extended delay with no new drops/lights
-                    next_event_timer = 7.0f + (static_cast<float>(rand()) / static_cast<float>(RAND_MAX)) * 5.0f;
-                } else {
-                    // Spawn 1 light (70% chance) or 2-3 simultaneous lights (30% chance)
-                    int count = ((rand() % 100) < 30) ? (2 + (rand() % 2)) : 1;
+                if (timers[i].time_remaining <= 0.0f) {
+                    float drop_x = pos_dist(gen);
+                    float drop_z = pos_dist(gen);
 
-                    for (int k = 0; k < count; ++k) {
-                        float drop_x = -0.4f + (static_cast<float>(rand()) / static_cast<float>(RAND_MAX)) * 0.8f;
-                        float drop_z = -0.4f + (static_cast<float>(rand()) / static_cast<float>(RAND_MAX)) * 0.8f;
+                    sim.add_drop(drop_x, drop_z, 0.16f, 0.011f);
 
-                        sim.add_drop(drop_x, drop_z, 0.16f, 0.010f);
+                    AnimatedLight light;
+                    float offset_x = pos_dist(gen) * 0.3f;
+                    float offset_z = pos_dist(gen) * 0.3f;
+                    
+                    light.position = glm::vec3(drop_x + offset_x, height_dist(gen), drop_z + offset_z);
+                    light.color = generate_vibrant_color(gen);
+                    light.lifetime = std::max(4.0f, duration_dist(gen));
+                    light.peak_time = 4.5f;                     // Explicit peak centered at 4.5 seconds
+                    light.peak_intensity = std::clamp(intensity_dist(gen), 0.15f, 1.0f);
+                    light.sigma = light.lifetime / 6.0f;        // 3-sigma left, 3-sigma right
 
-                        AnimatedLight light;
-                        // Position light above the drop area at a non-grazing angle
-                        float offset_x = -0.15f + (static_cast<float>(rand()) / static_cast<float>(RAND_MAX)) * 0.30f;
-                        float offset_z = -0.15f + (static_cast<float>(rand()) / static_cast<float>(RAND_MAX)) * 0.30f;
-                        float height   = 1.2f + (static_cast<float>(rand()) / static_cast<float>(RAND_MAX)) * 0.6f;
+                    lights.push_back(light);
 
-                        light.position = glm::vec3(drop_x + offset_x, height, drop_z + offset_z);
-                        light.color = generate_vibrant_color();
-                        light.peak_intensity = 1.2f + (static_cast<float>(rand()) / static_cast<float>(RAND_MAX)) * 0.8f;
-                        light.lifetime = 4.5f + (static_cast<float>(rand()) / static_cast<float>(RAND_MAX)) * 2.5f;
-                        light.rise_time = 1.0f + (static_cast<float>(rand()) / static_cast<float>(RAND_MAX)) * 0.6f;
-                        light.decay_time = 1.8f + (static_cast<float>(rand()) / static_cast<float>(RAND_MAX)) * 1.0f;
-
-                        lights.push_back(light);
-                    }
-
-                    // Lower frequency delay between active events (4.5s to 8.0s)
-                    next_event_timer = 4.5f + (static_cast<float>(rand()) / static_cast<float>(RAND_MAX)) * 3.5f;
+                    timers[i].sample_next(gen, arrival_dist);
                 }
             }
 
-            // Update active lights
+            // Advance lights and calculate Gaussian intensity profile
             std::vector<LightData> active_light_data;
             for (auto it = lights.begin(); it != lights.end(); ) {
                 it->age += dt;
-                float current_intensity = it->get_current_intensity();
+                float intensity = it->get_current_intensity();
 
                 if (it->is_dead()) {
                     it = lights.erase(it);
                 } else {
-                    if (current_intensity > 0.0001f) {
-                        active_light_data.push_back({ it->position, it->color, current_intensity });
+                    if (intensity > 0.001f) {
+                        active_light_data.push_back({ it->position, it->color, intensity });
                     }
                     ++it;
                 }
