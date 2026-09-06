@@ -9,7 +9,6 @@ layout (location = 2) in vec2 aTexCoord;
 
 out vec3 WorldPos;
 out vec3 Normal;
-out vec2 TexCoord;
 
 uniform mat4 model;
 uniform mat4 view;
@@ -18,7 +17,6 @@ uniform mat4 projection;
 void main() {
     WorldPos = vec3(model * vec4(aPos, 1.0));
     Normal = mat3(transpose(inverse(model))) * aNormal;
-    TexCoord = aTexCoord;
     gl_Position = projection * view * vec4(WorldPos, 1.0);
 }
 )";
@@ -29,39 +27,53 @@ out vec4 FragColor;
 
 in vec3 WorldPos;
 in vec3 Normal;
-in vec2 TexCoord;
 
-uniform vec3 cameraPos;
-uniform vec3 lightDir;
+struct Light {
+    vec3 position;
+    vec3 color;
+    float intensity;
+};
+
+const int MAX_LIGHTS = 12;
+uniform int u_numLights;
+uniform Light u_lights[MAX_LIGHTS];
 
 void main() {
     vec3 N = normalize(Normal);
-    vec3 V = normalize(cameraPos - WorldPos);
-    vec3 L = normalize(-lightDir);
-    vec3 H = normalize(L + V);
+    vec3 V = vec3(0.0, 1.0, 0.0); // Orthographic top-down view direction
+    
+    vec3 totalSpecular = vec3(0.0);
 
-    // Fresnel Reflection
-    float F0 = 0.04; 
-    float NdotV = max(dot(N, V), 0.0);
-    float fresnel = F0 + (1.0 - F0) * pow(1.0 - NdotV, 3.0);
+    for (int i = 0; i < u_numLights; ++i) {
+        if (u_lights[i].intensity <= 0.0001) continue;
 
-    // Specular Glint
-    float NdotH = max(dot(N, H), 0.0);
-    float specSharp = pow(NdotH, 128.0) * 1.8;
-    vec3 specular = vec3(0.9, 0.95, 1.0) * specSharp;
+        vec3 lightVec = u_lights[i].position - WorldPos;
+        float dist = length(lightVec);
+        vec3 L = lightVec / max(dist, 0.0001);
+        vec3 H = normalize(L + V);
 
-    // Dark Obsidian Palette (Replaces Saturated Cyan)
-    vec3 deepVoid = vec3(0.002, 0.003, 0.005);
-    vec3 waveShallow = vec3(0.015, 0.025, 0.035);
+        float NdotL = max(dot(N, L), 0.0);
+        float NdotV = max(dot(N, V), 0.0);
+        float NdotH = max(dot(N, H), 0.0);
 
-    float heightSignal = clamp(WorldPos.y * 20.0 + 0.2, 0.0, 1.0);
-    vec3 bodyColor = mix(deepVoid, waveShallow, heightSignal);
+        // Distance attenuation
+        float atten = 1.0 / (1.0 + 0.8 * dist + 0.4 * dist * dist);
 
-    // Subtle edge rim light
-    float rim = pow(1.0 - NdotV, 2.0) * 0.08;
-    vec3 rimColor = vec3(0.1, 0.15, 0.2) * rim;
+        // Water Fresnel (IOR = 1.333)
+        float F0 = 0.02;
+        float fresnel = F0 + (1.0 - F0) * pow(clamp(1.0 - NdotV, 0.0, 1.0), 5.0);
 
-    vec3 finalColor = bodyColor + specular + rimColor;
+        // Energy-conserving microfacet specular glint
+        float shininess = 192.0;
+        float specFactor = ((shininess + 8.0) / (8.0 * 3.14159265)) * pow(NdotH, shininess);
+
+        vec3 spec = u_lights[i].color * u_lights[i].intensity * specFactor * NdotL * fresnel * atten * 3.0;
+        totalSpecular += spec;
+    }
+
+    // Tone mapping and gamma correction
+    vec3 finalColor = totalSpecular / (totalSpecular + vec3(1.0));
+    finalColor = pow(finalColor, vec3(1.0 / 2.2));
 
     FragColor = vec4(finalColor, 1.0);
 }
@@ -97,20 +109,29 @@ bool Renderer::init() {
     return shader_program != 0;
 }
 
-void Renderer::render(const WaterMesh& mesh, const glm::mat4& view, const glm::mat4& projection, const glm::vec3& camera_pos) {
+void Renderer::render(const WaterMesh& mesh, 
+                      const glm::mat4& view, 
+                      const glm::mat4& projection, 
+                      const glm::vec3& camera_pos, 
+                      const std::vector<LightData>& active_lights) {
     if (!shader_program) return;
 
     glUseProgram(shader_program);
 
     glm::mat4 model = glm::mat4(1.0f);
-    // Light positioned almost straight overhead with a subtle offset to catch slopes
-    glm::vec3 light_dir = glm::normalize(glm::vec3(-0.1f, -1.0f, -0.1f));
-
     glUniformMatrix4fv(glGetUniformLocation(shader_program, "model"), 1, GL_FALSE, glm::value_ptr(model));
     glUniformMatrix4fv(glGetUniformLocation(shader_program, "view"), 1, GL_FALSE, glm::value_ptr(view));
     glUniformMatrix4fv(glGetUniformLocation(shader_program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-    glUniform3fv(glGetUniformLocation(shader_program, "cameraPos"), 1, glm::value_ptr(camera_pos));
-    glUniform3fv(glGetUniformLocation(shader_program, "lightDir"), 1, glm::value_ptr(light_dir));
+
+    int num_lights = std::min(static_cast<int>(active_lights.size()), 12);
+    glUniform1i(glGetUniformLocation(shader_program, "u_numLights"), num_lights);
+
+    for (int i = 0; i < num_lights; ++i) {
+        std::string prefix = "u_lights[" + std::to_string(i) + "].";
+        glUniform3fv(glGetUniformLocation(shader_program, (prefix + "position").c_str()), 1, glm::value_ptr(active_lights[i].position));
+        glUniform3fv(glGetUniformLocation(shader_program, (prefix + "color").c_str()), 1, glm::value_ptr(active_lights[i].color));
+        glUniform1f(glGetUniformLocation(shader_program, (prefix + "intensity").c_str()), active_lights[i].intensity);
+    }
 
     mesh.render();
     glUseProgram(0);

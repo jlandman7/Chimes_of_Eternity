@@ -1974,7 +1974,6 @@ CMakeFiles/Chimes_of_Eternity.dir/src/renderer.cpp.o: /Users/jacoblandman/Docume
   /Users/jacoblandman/Documents/Code/Chimes_of_Eternity/src/renderer.h \
   /Users/jacoblandman/Documents/Code/Chimes_of_Eternity/src/water_mesh.h \
   /Users/jacoblandman/Documents/Code/Chimes_of_Eternity/src/water_simulation.h \
-  /opt/homebrew/include/GLFW/glfw3.h \
   /opt/homebrew/include/glm/common.hpp \
   /opt/homebrew/include/glm/common.hpp \
   /opt/homebrew/include/glm/vector_relational.hpp \
@@ -2552,7 +2551,6 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_mesh.cpp.o: /Users/jacoblandman/Docu
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/bit_reference.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/byte.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/complex.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/deque.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/fstream.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/functional.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/ios.h \
@@ -2561,9 +2559,7 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_mesh.cpp.o: /Users/jacoblandman/Docu
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/memory_resource.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/ostream.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/pair.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/queue.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/sstream.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/stack.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/streambuf.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/string.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/string_view.h \
@@ -2692,8 +2688,6 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_mesh.cpp.o: /Users/jacoblandman/Docu
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__new/placement_new_delete.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__node_handle \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__numeric/partial_sum.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__ostream/basic_ostream.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__ostream/put_character_sequence.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__random/is_valid.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__random/log2.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__random/uniform_int_distribution.h \
@@ -2771,7 +2765,6 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_mesh.cpp.o: /Users/jacoblandman/Docu
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_base_of.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_bounded_array.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_callable.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_char_like_type.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_class.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_compound.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_const.h \
@@ -2888,7 +2881,6 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_mesh.cpp.o: /Users/jacoblandman/Docu
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/array \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/atomic \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bitset \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cassert \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cctype \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cerrno \
@@ -2908,17 +2900,13 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_mesh.cpp.o: /Users/jacoblandman/Docu
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/ctype.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cwchar \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cwctype \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/deque \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/errno.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/exception \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/float.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/format \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/functional \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/initializer_list \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/ios \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/iosfwd \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/istream \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/iterator \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/locale \
@@ -2927,11 +2915,7 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_mesh.cpp.o: /Users/jacoblandman/Docu
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/new \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/optional \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/print \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/queue \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/ratio \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/stack \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/stddef.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/stdexcept \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/stdint.h \
@@ -3072,7 +3056,6 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_mesh.cpp.o: /Users/jacoblandman/Docu
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/types.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/time.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/wchar.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/wctype.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/xlocale.h \
@@ -3110,7 +3093,6 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_mesh.cpp.o: /Users/jacoblandman/Docu
   /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdint.h \
   /Users/jacoblandman/Documents/Code/Chimes_of_Eternity/src/water_mesh.h \
   /Users/jacoblandman/Documents/Code/Chimes_of_Eternity/src/water_simulation.h \
-  /opt/homebrew/include/GLFW/glfw3.h \
   /opt/homebrew/include/glm/common.hpp \
   /opt/homebrew/include/glm/common.hpp \
   /opt/homebrew/include/glm/vector_relational.hpp \
@@ -3310,6 +3292,7 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_simulation.cpp.o: /Users/jacoblandma
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/__wctype.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/__xlocale.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_abort.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_assert.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_bounds.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_ctermid.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_ctype.h \
@@ -3317,6 +3300,7 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_simulation.cpp.o: /Users/jacoblandma
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_locale_posix2008.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_mb_cur_max.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_printf.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_static_assert.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdlib.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_string.h \
@@ -3345,6 +3329,7 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_simulation.cpp.o: /Users/jacoblandma
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/signal.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/assert.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/adjacent_find.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/all_of.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/any_of.h \
@@ -3540,13 +3525,28 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_simulation.cpp.o: /Users/jacoblandma
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__exception/terminate.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__format/enable_insertable.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/binary_function.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/binary_negate.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/bind.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/binder1st.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/binder2nd.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/boyer_moore_searcher.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/default_searcher.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/function.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/hash.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/identity.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/invoke.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/is_transparent.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/mem_fn.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/mem_fun_ref.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/not_fn.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/operations.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/perfect_forward.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/pointer_to_binary_function.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/pointer_to_unary_function.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/ranges_operations.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/reference_wrapper.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/unary_function.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/unary_negate.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/weak_result_type.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/array.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/bit_reference.h \
@@ -3568,6 +3568,7 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_simulation.cpp.o: /Users/jacoblandma
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/tuple.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/variant.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/vector.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__hash_table \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__ios/fpos.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/access.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/advance.h \
@@ -3579,6 +3580,7 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_simulation.cpp.o: /Users/jacoblandma
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/default_sentinel.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/distance.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/empty.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/erase_if_container.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/front_insert_iterator.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/incrementable_traits.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/insert_iterator.h \
@@ -3594,6 +3596,7 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_simulation.cpp.o: /Users/jacoblandma
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/ostream_iterator.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/ostreambuf_iterator.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/prev.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/ranges_iterator_traits.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/readable_traits.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/reverse_access.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/reverse_iterator.h \
@@ -3684,6 +3687,7 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_simulation.cpp.o: /Users/jacoblandma
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__new/new_handler.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__new/nothrow_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__new/placement_new_delete.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__node_handle \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__numeric/partial_sum.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__random/is_valid.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__random/log2.h \
@@ -3731,6 +3735,7 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_simulation.cpp.o: /Users/jacoblandma
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/aligned_storage.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/aligned_union.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/alignment_of.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/can_extract_key.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/common_reference.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/common_type.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/conditional.h \
@@ -3826,6 +3831,7 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_simulation.cpp.o: /Users/jacoblandma
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/reference_constructs_from_temporary.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/remove_all_extents.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/remove_const.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/remove_const_ref.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/remove_cv.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/remove_cvref.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/remove_extent.h \
@@ -3833,6 +3839,7 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_simulation.cpp.o: /Users/jacoblandma
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/remove_reference.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/remove_volatile.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/result_of.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/strip_signature.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/type_identity.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/type_list.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/underlying_type.h \
@@ -3875,8 +3882,10 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_simulation.cpp.o: /Users/jacoblandma
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/array \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/atomic \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bit \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cassert \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cctype \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cerrno \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cfloat \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/climits \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/clocale \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cmath \
@@ -3894,6 +3903,8 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_simulation.cpp.o: /Users/jacoblandma
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cwctype \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/errno.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/exception \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/float.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/functional \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/initializer_list \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/ios \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/iosfwd \
@@ -3919,6 +3930,7 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_simulation.cpp.o: /Users/jacoblandma
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/tuple \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/typeinfo \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/unordered_map \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/utility \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/variant \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector \
@@ -3927,6 +3939,7 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_simulation.cpp.o: /Users/jacoblandma
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/wctype.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ctype.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/errno.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/float.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/libkern/_OSByteOrder.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/libkern/arm/_OSByteOrder.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h \
@@ -4054,6 +4067,9 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_simulation.cpp.o: /Users/jacoblandma
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/xlocale/_time.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/xlocale/_wchar.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/xlocale/_wctype.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/__float_float.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/__float_header_macro.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/__float_infinity_nan.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/21/include/__stdarg___gnuc_va_list.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/21/include/__stdarg___va_copy.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/21/include/__stdarg_header_macro.h \
@@ -4069,12 +4085,202 @@ CMakeFiles/Chimes_of_Eternity.dir/src/water_simulation.cpp.o: /Users/jacoblandma
   /Library/Developer/CommandLineTools/usr/lib/clang/21/include/__stddef_rsize_t.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/21/include/__stddef_size_t.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/21/include/__stddef_wchar_t.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/float.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/21/include/limits.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/21/include/ptrcheck.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdarg.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stddef.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdint.h \
-  /Users/jacoblandman/Documents/Code/Chimes_of_Eternity/src/water_simulation.h
+  /Users/jacoblandman/Documents/Code/Chimes_of_Eternity/src/water_simulation.h \
+  /opt/homebrew/include/glm/common.hpp \
+  /opt/homebrew/include/glm/common.hpp \
+  /opt/homebrew/include/glm/vector_relational.hpp \
+  /opt/homebrew/include/glm/detail/_vectorize.hpp \
+  /opt/homebrew/include/glm/detail/func_exponential.inl \
+  /opt/homebrew/include/glm/detail/func_vector_relational.inl \
+  /opt/homebrew/include/glm/detail/qualifier.hpp \
+  /opt/homebrew/include/glm/detail/setup.hpp \
+  /opt/homebrew/include/glm/detail/type_vec1.hpp \
+  /opt/homebrew/include/glm/detail/type_vec2.hpp \
+  /opt/homebrew/include/glm/detail/type_vec3.hpp \
+  /opt/homebrew/include/glm/detail/type_vec4.hpp \
+  /opt/homebrew/include/glm/exponential.hpp \
+  /opt/homebrew/include/glm/vector_relational.hpp \
+  /opt/homebrew/include/glm/detail/compute_vector_relational.hpp \
+  /opt/homebrew/include/glm/detail/_fixes.hpp \
+  /opt/homebrew/include/glm/detail/_vectorize.hpp \
+  /opt/homebrew/include/glm/detail/compute_common.hpp \
+  /opt/homebrew/include/glm/detail/func_common.inl \
+  /opt/homebrew/include/glm/detail/func_geometric.inl \
+  /opt/homebrew/include/glm/detail/qualifier.hpp \
+  /opt/homebrew/include/glm/detail/setup.hpp \
+  /opt/homebrew/include/glm/detail/type_vec1.hpp \
+  /opt/homebrew/include/glm/detail/type_vec1.inl \
+  /opt/homebrew/include/glm/detail/type_vec2.hpp \
+  /opt/homebrew/include/glm/detail/type_vec3.hpp \
+  /opt/homebrew/include/glm/detail/type_vec4.hpp \
+  /opt/homebrew/include/glm/geometric.hpp \
+  /opt/homebrew/include/glm/matrix.hpp \
+  /opt/homebrew/include/glm/detail/type_mat2x2.hpp \
+  /opt/homebrew/include/glm/detail/type_mat2x3.hpp \
+  /opt/homebrew/include/glm/detail/type_mat2x3.inl \
+  /opt/homebrew/include/glm/detail/type_mat2x4.hpp \
+  /opt/homebrew/include/glm/detail/type_mat2x4.inl \
+  /opt/homebrew/include/glm/detail/type_mat3x2.hpp \
+  /opt/homebrew/include/glm/detail/type_mat3x2.inl \
+  /opt/homebrew/include/glm/detail/type_mat3x3.hpp \
+  /opt/homebrew/include/glm/detail/type_mat3x3.inl \
+  /opt/homebrew/include/glm/detail/type_mat3x4.hpp \
+  /opt/homebrew/include/glm/detail/type_mat3x4.inl \
+  /opt/homebrew/include/glm/detail/type_mat4x2.hpp \
+  /opt/homebrew/include/glm/detail/type_mat4x2.inl \
+  /opt/homebrew/include/glm/detail/type_mat4x3.hpp \
+  /opt/homebrew/include/glm/detail/type_mat4x3.inl \
+  /opt/homebrew/include/glm/detail/type_mat4x4.hpp \
+  /opt/homebrew/include/glm/detail/type_mat4x4.inl \
+  /opt/homebrew/include/glm/detail/type_vec2.hpp \
+  /opt/homebrew/include/glm/detail/type_vec3.hpp \
+  /opt/homebrew/include/glm/detail/type_vec4.hpp \
+  /opt/homebrew/include/glm/ext/matrix_double2x3.hpp \
+  /opt/homebrew/include/glm/ext/matrix_double2x3_precision.hpp \
+  /opt/homebrew/include/glm/ext/matrix_double2x4.hpp \
+  /opt/homebrew/include/glm/ext/matrix_double2x4_precision.hpp \
+  /opt/homebrew/include/glm/ext/matrix_double3x2.hpp \
+  /opt/homebrew/include/glm/ext/matrix_double3x2_precision.hpp \
+  /opt/homebrew/include/glm/ext/matrix_double3x3.hpp \
+  /opt/homebrew/include/glm/ext/matrix_double3x3_precision.hpp \
+  /opt/homebrew/include/glm/ext/matrix_double3x4.hpp \
+  /opt/homebrew/include/glm/ext/matrix_double3x4_precision.hpp \
+  /opt/homebrew/include/glm/ext/matrix_double4x2.hpp \
+  /opt/homebrew/include/glm/ext/matrix_double4x2_precision.hpp \
+  /opt/homebrew/include/glm/ext/matrix_double4x3.hpp \
+  /opt/homebrew/include/glm/ext/matrix_double4x3_precision.hpp \
+  /opt/homebrew/include/glm/ext/matrix_double4x4.hpp \
+  /opt/homebrew/include/glm/ext/matrix_double4x4_precision.hpp \
+  /opt/homebrew/include/glm/ext/matrix_float2x3.hpp \
+  /opt/homebrew/include/glm/ext/matrix_float2x3_precision.hpp \
+  /opt/homebrew/include/glm/ext/matrix_float2x4.hpp \
+  /opt/homebrew/include/glm/ext/matrix_float2x4_precision.hpp \
+  /opt/homebrew/include/glm/ext/matrix_float3x2.hpp \
+  /opt/homebrew/include/glm/ext/matrix_float3x2_precision.hpp \
+  /opt/homebrew/include/glm/ext/matrix_float3x3.hpp \
+  /opt/homebrew/include/glm/ext/matrix_float3x3_precision.hpp \
+  /opt/homebrew/include/glm/ext/matrix_float3x4.hpp \
+  /opt/homebrew/include/glm/ext/matrix_float3x4_precision.hpp \
+  /opt/homebrew/include/glm/ext/matrix_float4x2.hpp \
+  /opt/homebrew/include/glm/ext/matrix_float4x2_precision.hpp \
+  /opt/homebrew/include/glm/ext/matrix_float4x3.hpp \
+  /opt/homebrew/include/glm/ext/matrix_float4x3_precision.hpp \
+  /opt/homebrew/include/glm/ext/matrix_float4x4.hpp \
+  /opt/homebrew/include/glm/ext/matrix_float4x4_precision.hpp \
+  /opt/homebrew/include/glm/geometric.hpp \
+  /opt/homebrew/include/glm/detail/func_matrix.inl \
+  /opt/homebrew/include/glm/detail/qualifier.hpp \
+  /opt/homebrew/include/glm/detail/setup.hpp \
+  /opt/homebrew/include/glm/mat2x2.hpp \
+  /opt/homebrew/include/glm/mat2x3.hpp \
+  /opt/homebrew/include/glm/mat2x4.hpp \
+  /opt/homebrew/include/glm/mat3x2.hpp \
+  /opt/homebrew/include/glm/mat3x3.hpp \
+  /opt/homebrew/include/glm/mat3x4.hpp \
+  /opt/homebrew/include/glm/mat4x2.hpp \
+  /opt/homebrew/include/glm/mat4x3.hpp \
+  /opt/homebrew/include/glm/mat4x4.hpp \
+  /opt/homebrew/include/glm/matrix.hpp \
+  /opt/homebrew/include/glm/vec2.hpp \
+  /opt/homebrew/include/glm/vec3.hpp \
+  /opt/homebrew/include/glm/vec4.hpp \
+  /opt/homebrew/include/glm/detail/compute_vector_relational.hpp \
+  /opt/homebrew/include/glm/detail/setup.hpp \
+  /opt/homebrew/include/glm/detail/_vectorize.hpp \
+  /opt/homebrew/include/glm/detail/compute_vector_decl.hpp \
+  /opt/homebrew/include/glm/detail/compute_vector_relational.hpp \
+  /opt/homebrew/include/glm/detail/qualifier.hpp \
+  /opt/homebrew/include/glm/detail/setup.hpp \
+  /opt/homebrew/include/glm/detail/type_mat2x2.hpp \
+  /opt/homebrew/include/glm/detail/type_mat2x2.inl \
+  /opt/homebrew/include/glm/detail/type_vec2.hpp \
+  /opt/homebrew/include/glm/detail/type_vec2.inl \
+  /opt/homebrew/include/glm/detail/type_vec3.hpp \
+  /opt/homebrew/include/glm/detail/type_vec3.inl \
+  /opt/homebrew/include/glm/detail/type_vec4.hpp \
+  /opt/homebrew/include/glm/detail/type_vec4.inl \
+  /opt/homebrew/include/glm/detail/setup.hpp \
+  /opt/homebrew/include/glm/ext/scalar_int_sized.hpp \
+  /opt/homebrew/include/glm/ext/scalar_uint_sized.hpp \
+  /opt/homebrew/include/glm/ext/vector_int2.hpp \
+  /opt/homebrew/include/glm/ext/vector_int3.hpp \
+  /opt/homebrew/include/glm/ext/vector_int4.hpp \
+  /opt/homebrew/include/glm/ext/vector_uint2.hpp \
+  /opt/homebrew/include/glm/ext/vector_uint3.hpp \
+  /opt/homebrew/include/glm/ext/vector_uint4.hpp \
+  /opt/homebrew/include/glm/ext/matrix_double2x2.hpp \
+  /opt/homebrew/include/glm/ext/matrix_double2x2_precision.hpp \
+  /opt/homebrew/include/glm/ext/matrix_float2x2.hpp \
+  /opt/homebrew/include/glm/ext/matrix_float2x2_precision.hpp \
+  /opt/homebrew/include/glm/ext/vector_bool2.hpp \
+  /opt/homebrew/include/glm/ext/vector_bool2_precision.hpp \
+  /opt/homebrew/include/glm/ext/vector_bool3.hpp \
+  /opt/homebrew/include/glm/ext/vector_bool3_precision.hpp \
+  /opt/homebrew/include/glm/ext/vector_bool4.hpp \
+  /opt/homebrew/include/glm/ext/vector_bool4_precision.hpp \
+  /opt/homebrew/include/glm/ext/vector_double2.hpp \
+  /opt/homebrew/include/glm/ext/vector_double2_precision.hpp \
+  /opt/homebrew/include/glm/ext/vector_double3.hpp \
+  /opt/homebrew/include/glm/ext/vector_double3_precision.hpp \
+  /opt/homebrew/include/glm/ext/vector_double4.hpp \
+  /opt/homebrew/include/glm/ext/vector_double4_precision.hpp \
+  /opt/homebrew/include/glm/ext/vector_float2.hpp \
+  /opt/homebrew/include/glm/ext/vector_float2_precision.hpp \
+  /opt/homebrew/include/glm/ext/vector_float3.hpp \
+  /opt/homebrew/include/glm/ext/vector_float3_precision.hpp \
+  /opt/homebrew/include/glm/ext/vector_float4.hpp \
+  /opt/homebrew/include/glm/ext/vector_float4_precision.hpp \
+  /opt/homebrew/include/glm/ext/vector_int2.hpp \
+  /opt/homebrew/include/glm/ext/vector_int2_sized.hpp \
+  /opt/homebrew/include/glm/ext/vector_int3.hpp \
+  /opt/homebrew/include/glm/ext/vector_int3_sized.hpp \
+  /opt/homebrew/include/glm/ext/vector_int4.hpp \
+  /opt/homebrew/include/glm/ext/vector_int4_sized.hpp \
+  /opt/homebrew/include/glm/ext/vector_uint2.hpp \
+  /opt/homebrew/include/glm/ext/vector_uint2_sized.hpp \
+  /opt/homebrew/include/glm/ext/vector_uint3.hpp \
+  /opt/homebrew/include/glm/ext/vector_uint3_sized.hpp \
+  /opt/homebrew/include/glm/ext/vector_uint4.hpp \
+  /opt/homebrew/include/glm/ext/vector_uint4_sized.hpp \
+  /opt/homebrew/include/glm/common.hpp \
+  /opt/homebrew/include/glm/common.hpp \
+  /opt/homebrew/include/glm/simd/platform.h \
+  /opt/homebrew/include/glm/detail/_fixes.hpp \
+  /opt/homebrew/include/glm/detail/_vectorize.hpp \
+  /opt/homebrew/include/glm/detail/func_integer.inl \
+  /opt/homebrew/include/glm/detail/func_packing.inl \
+  /opt/homebrew/include/glm/detail/func_trigonometric.inl \
+  /opt/homebrew/include/glm/detail/qualifier.hpp \
+  /opt/homebrew/include/glm/detail/setup.hpp \
+  /opt/homebrew/include/glm/detail/type_half.hpp \
+  /opt/homebrew/include/glm/detail/type_half.inl \
+  /opt/homebrew/include/glm/exponential.hpp \
+  /opt/homebrew/include/glm/fwd.hpp \
+  /opt/homebrew/include/glm/geometric.hpp \
+  /opt/homebrew/include/glm/glm.hpp \
+  /opt/homebrew/include/glm/integer.hpp \
+  /opt/homebrew/include/glm/mat2x2.hpp \
+  /opt/homebrew/include/glm/mat2x3.hpp \
+  /opt/homebrew/include/glm/mat2x4.hpp \
+  /opt/homebrew/include/glm/mat3x2.hpp \
+  /opt/homebrew/include/glm/mat3x3.hpp \
+  /opt/homebrew/include/glm/mat3x4.hpp \
+  /opt/homebrew/include/glm/mat4x2.hpp \
+  /opt/homebrew/include/glm/mat4x3.hpp \
+  /opt/homebrew/include/glm/mat4x4.hpp \
+  /opt/homebrew/include/glm/matrix.hpp \
+  /opt/homebrew/include/glm/packing.hpp \
+  /opt/homebrew/include/glm/trigonometric.hpp \
+  /opt/homebrew/include/glm/vec2.hpp \
+  /opt/homebrew/include/glm/vec3.hpp \
+  /opt/homebrew/include/glm/vec4.hpp \
+  /opt/homebrew/include/glm/vector_relational.hpp
 
 CMakeFiles/Chimes_of_Eternity.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chimes_of_Eternity/src/window.cpp \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/OpenGLAvailability.h \

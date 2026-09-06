@@ -6,7 +6,6 @@ Window::Window(int width, int height, const std::string& title, bool fullscreen)
         throw std::runtime_error("Failed to initialize GLFW");
     }
 
-    // Configure Core Profile OpenGL 3.3
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -21,7 +20,6 @@ Window::Window(int width, int height, const std::string& title, bool fullscreen)
         if (monitor) {
             const GLFWvidmode* mode = glfwGetVideoMode(monitor);
             if (mode) {
-                // Match monitor resolution
                 width = mode->width;
                 height = mode->height;
             }
@@ -35,7 +33,7 @@ Window::Window(int width, int height, const std::string& title, bool fullscreen)
     }
 
     glfwMakeContextCurrent(window_handle);
-    glfwSwapInterval(1); // Enable VSync
+    glfwSwapInterval(1);
 }
 
 Window::~Window() {

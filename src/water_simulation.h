@@ -1,46 +1,34 @@
 #pragma once
 #include <vector>
-#include <algorithm>
-#include <cmath>
+#include <glm/glm.hpp>
 
 struct WaterSimulationConfig {
-    int grid_resolution = 128;
-    float domain_size = 1.0f;
-    float wave_speed = 2.0f;
-    float damping = 0.995f;
+    int grid_resolution = 160;
+    float domain_size = 2.4f;
+    float wave_speed = 0.55f;
+    float damping = 0.985f;
     float simulation_timestep = 0.016f;
 };
 
 class WaterSimulation {
 public:
     explicit WaterSimulation(const WaterSimulationConfig& config);
-    ~WaterSimulation() = default;
-
     void initialize();
     void step();
+    void add_drop(float center_x, float center_z, float radius, float strength);
 
-    // Creates a smooth ripple perturbation at normalized domain coordinates [0, 1]
-    void add_drop(float norm_x, float norm_y, float radius, float strength);
+    float get_height_at(float x, float z) const;
+    glm::vec3 get_normal_at(float x, float z) const;
 
-    // Grid queries
-    float get_height(int x, int y) const;
-    const std::vector<float>& get_heights() const { return heights; }
-    int get_resolution() const { return resolution; }
-    float get_domain_size() const { return domain_size; }
+    int get_resolution() const { return config.grid_resolution; }
+    float get_domain_size() const { return config.domain_size; }
 
 private:
     WaterSimulationConfig config;
-    int resolution;
-    float domain_size;
-    float wave_speed;
-    float damping;
-    float dt;
+    std::vector<float> heights;
+    std::vector<float> heights_prev;
+    std::vector<float> heights_next;
 
-    // Persistent double-buffered height arrays[cite: 21]
-    std::vector<float> heights;      // Current timestep (t)
-    std::vector<float> heights_prev; // Previous timestep (t - dt)
-    std::vector<float> heights_next; // Buffer for (t + dt) computation
-
-    inline int index(int x, int y) const { return y * resolution + x; }
+    inline int index(int x, int y) const { return y * config.grid_resolution + x; }
     float laplacian(int x, int y) const;
 };

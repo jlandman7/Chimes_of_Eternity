@@ -1,7 +1,20 @@
 #pragma once
+
+#ifdef _WIN32
+    #include <GL/gl.h>
+#else
+    #include <OpenGL/gl3.h>
+#endif
+#include <vector>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "water_mesh.h"
+
+struct LightData {
+    glm::vec3 position;
+    glm::vec3 color;
+    float intensity;
+};
 
 class Renderer {
 public:
@@ -9,7 +22,11 @@ public:
     ~Renderer();
 
     bool init();
-    void render(const WaterMesh& mesh, const glm::mat4& view, const glm::mat4& projection, const glm::vec3& camera_pos);
+    void render(const WaterMesh& mesh, 
+                const glm::mat4& view, 
+                const glm::mat4& projection, 
+                const glm::vec3& camera_pos, 
+                const std::vector<LightData>& active_lights);
 
 private:
     GLuint shader_program = 0;
