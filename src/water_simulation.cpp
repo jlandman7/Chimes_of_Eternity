@@ -63,19 +63,28 @@ void WaterSimulation::step() {
     }
 }
 
-void WaterSimulation::add_drop(float center_x, float center_z, float radius, float strength) {
-    float dx = config.domain_size / static_cast<float>(config.grid_resolution - 1);
-    float half_d = config.domain_size * 0.5f;
+void WaterSimulation::add_drop(float x, float z, float radius, float magnitude) {
+    // Convert world space coordinates [-domain_size/2, domain_size/2] to grid indices
+    int center_x = static_cast<int>(((x / config.domain_size) + 0.5f) * config.grid_resolution);
+    int center_z = static_cast<int>(((z / config.domain_size) + 0.5f) * config.grid_resolution);
+    int r_cells = std::max(1, static_cast<int>((radius / config.domain_size) * config.grid_resolution));
 
-    for (int y = 0; y < config.grid_resolution; ++y) {
-        for (int x = 0; x < config.grid_resolution; ++x) {
-            float px = -half_d + x * dx;
-            float pz = -half_d + y * dx;
+    for (int dz = -r_cells; dz <= r_cells; ++dz) {
+        for (int dx = -r_cells; dx <= r_cells; ++dx) {
+            int gx = center_x + dx;
+            int gz = center_z + dz;
 
-            float dist_sq = (px - center_x) * (px - center_x) + (pz - center_z) * (pz - center_z);
-            if (dist_sq < radius * radius) {
-                float factor = (1.0f - dist_sq / (radius * radius));
-                heights[index(x, y)] += strength * factor * factor;
+            // Boundary check
+            if (gx >= 0 && gx < config.grid_resolution && gz >= 0 && gz < config.grid_resolution) {
+                float dist = std::sqrt(static_cast<float>(dx * dx + dz * dz));
+                
+                if (dist <= r_cells) {
+                    // Cosine falloff for a smooth, natural droplet impression
+                    float factor = 0.5f * (1.0f + std::cos(3.14159265f * dist / r_cells));
+
+                    // ADDITIVE: Modify the existing displacement vector rather than setting it
+                    // Subtracting pushes the water surface downward at impact center
+                    heights[gz * config.grid_resolution + gx] -= magnitude * factor;                }
             }
         }
     }

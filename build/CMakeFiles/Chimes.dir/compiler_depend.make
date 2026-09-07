@@ -946,13 +946,73 @@ CMakeFiles/Chimes.dir/src/audio_manager.cpp.o: /Users/jacoblandman/Documents/Cod
   /Users/jacoblandman/Documents/Code/Chimes_of_Eternity/src/miniaudio.h
 
 CMakeFiles/Chimes.dir/src/main.cpp.o: /Users/jacoblandman/Documents/Code/Chimes_of_Eternity/src/main.cpp \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFArray.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFAttributedString.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFAvailability.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFBag.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFBase.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFBinaryHeap.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFBitVector.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFBundle.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFByteOrder.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFCGTypes.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFCalendar.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFCharacterSet.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFData.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFDate.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFDateFormatter.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFDictionary.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFError.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFFileDescriptor.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFFileSecurity.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFLocale.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFMachPort.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFMessagePort.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFNotificationCenter.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFNumber.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFNumberFormatter.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFPlugIn.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFPreferences.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFPropertyList.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFRunLoop.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFSet.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFSocket.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFStream.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFString.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFStringEncodingExt.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFStringTokenizer.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFTimeZone.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFTree.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFURL.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFURLAccess.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFURLEnumerator.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFUUID.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFUserNotification.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFUtilities.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFXMLNode.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFXMLParser.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CoreFoundation.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework/Headers/IOKitKeys.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework/Headers/IOKitLib.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework/Headers/IOMapTypes.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework/Headers/IOReturn.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework/Headers/IOTypes.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework/Headers/OSMessageNotification.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework/Headers/pwr_mgt/IOPMKeys.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework/Headers/pwr_mgt/IOPMLib.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework/Headers/pwr_mgt/IOPMLibDefs.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/OpenGLAvailability.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gl3.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gltypes.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/Availability.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternal.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternalLegacy.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityMacros.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/Block.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ConditionalMacros.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/MacTypes.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/TargetConditionals.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/___wctype.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/__wctype.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/__xlocale.h \
@@ -990,6 +1050,7 @@ CMakeFiles/Chimes.dir/src/main.cpp.o: /Users/jacoblandman/Documents/Code/Chimes_
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_limits.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_mcontext.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_types.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/arch.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/endian.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/signal.h \
@@ -1652,6 +1713,7 @@ CMakeFiles/Chimes.dir/src/main.cpp.o: /Users/jacoblandman/Documents/Code/Chimes_
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/random \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/ratio \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/stack \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/stdbool.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/stddef.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/stdexcept \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/stdint.h \
@@ -1673,14 +1735,91 @@ CMakeFiles/Chimes.dir/src/main.cpp.o: /Users/jacoblandman/Documents/Code/Chimes_
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/wchar.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/wctype.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ctype.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/device/device_types.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/dispatch/base.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/dispatch/block.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/dispatch/data.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/dispatch/dispatch.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/dispatch/dispatch_swift_shims.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/dispatch/group.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/dispatch/io.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/dispatch/object.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/dispatch/once.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/dispatch/queue.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/dispatch/semaphore.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/dispatch/source.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/dispatch/time.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/dispatch/workloop.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/errno.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/fcntl.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/float.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/gethostuuid.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/libkern/OSByteOrder.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/libkern/OSTypes.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/libkern/_OSByteOrder.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/libkern/arm/OSByteOrder.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/libkern/arm/_OSByteOrder.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/locale.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/_structs.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/boolean.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/exception.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/kern_return.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/processor_info.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/thread_state.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/thread_status.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/vm_param.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/vm_types.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/boolean.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/clock_types.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/dyld_kernel.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/error.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/exception_types.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/host_info.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/host_notify.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/host_special_ports.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/kern_return.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/kmod.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/mach_init.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/mach_traps.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/mach_types.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/mach_voucher_types.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/_structs.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/boolean.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/exception.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/kern_return.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/processor_info.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/thread_state.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/thread_status.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/vm_param.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/vm_types.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/memory_object_types.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/message.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/policy.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/port.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/processor_info.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/std_types.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/task_info.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/task_inspect.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/task_policy.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/task_special_ports.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/thread_info.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/thread_policy.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/thread_special_ports.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/thread_status.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/time_value.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/vm_attributes.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/vm_behavior.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/vm_inherit.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/vm_page_size.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/vm_prot.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/vm_purgable.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/vm_region.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/vm_statistics.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/vm_sync.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/vm_types.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach_debug/ipc_info.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_endian.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_mcontext.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h \
@@ -1694,12 +1833,22 @@ CMakeFiles/Chimes.dir/src/main.cpp.o: /Users/jacoblandman/Documents/Code/Chimes_
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/math.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/nl_types.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/os/availability.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/os/base.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/os/clock.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/os/object.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/os/workgroup.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/os/workgroup_base.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/os/workgroup_interval.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/os/workgroup_object.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/os/workgroup_parallel.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/pthread.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/pthread/pthread_impl.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/pthread/qos.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/pthread/sched.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/runetype.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sched.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/setjmp.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/signal.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stddef.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stdint.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stdio.h \
@@ -1719,6 +1868,7 @@ CMakeFiles/Chimes.dir/src/main.cpp.o: /Users/jacoblandman/Documents/Code/Chimes_
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_rwlockattr_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_types.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_select.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_symbol_aliasing.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_blkcnt_t.h \
@@ -1735,9 +1885,13 @@ CMakeFiles/Chimes.dir/src/main.cpp.o: /Users/jacoblandman/Documents/Code/Chimes_
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_fd_set.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_fd_setsize.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_fd_zero.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_filesec_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_fsblkcnt_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_fsfilcnt_t.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_fsid_t.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_fsobj_id_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_gid_t.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_guid_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_id_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_in_addr_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_in_port_t.h \
@@ -1754,10 +1908,15 @@ CMakeFiles/Chimes.dir/src/main.cpp.o: /Users/jacoblandman/Documents/Code/Chimes_
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_mode_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_nlink_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_null.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_o_dsync.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_o_sync.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_off_t.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_os_inline.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_pid_t.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_posix_vdisable.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_rsize_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_rune_t.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_s_ifmt.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_seek_set.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_sigaltstack.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_sigset_t.h \
@@ -1778,18 +1937,24 @@ CMakeFiles/Chimes.dir/src/main.cpp.o: /Users/jacoblandman/Documents/Code/Chimes_
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_uid_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_uintptr_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_useconds_t.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_uuid_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_va_list.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_wchar_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_wint_t.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/acl.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/appleapiopts.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/errno.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/fcntl.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/kauth.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/qos.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/resource.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/select.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/signal.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/syslimits.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/types.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/time.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h \
@@ -1824,8 +1989,10 @@ CMakeFiles/Chimes.dir/src/main.cpp.o: /Users/jacoblandman/Documents/Code/Chimes_
   /Library/Developer/CommandLineTools/usr/lib/clang/21/include/__stddef_wchar_t.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/21/include/float.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/21/include/limits.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/ptrauth.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/21/include/ptrcheck.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdarg.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdbool.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stddef.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdint.h \
   /Users/jacoblandman/Documents/Code/Chimes_of_Eternity/src/audio_manager.h \
@@ -6032,8 +6199,6 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 
 /opt/homebrew/include/glm/ext/matrix_float2x2_precision.hpp:
 
-/opt/homebrew/include/glm/ext/vector_uint3.hpp:
-
 /opt/homebrew/include/glm/ext/vector_uint2.hpp:
 
 /opt/homebrew/include/glm/ext/scalar_uint_sized.hpp:
@@ -6063,12 +6228,6 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 /opt/homebrew/include/glm/ext/quaternion_transform.hpp:
 
 /opt/homebrew/include/glm/detail/func_matrix.inl:
-
-/opt/homebrew/include/glm/ext/matrix_float4x4_precision.hpp:
-
-/opt/homebrew/include/glm/ext/vector_int1.hpp:
-
-/opt/homebrew/include/glm/ext/matrix_float4x3_precision.hpp:
 
 /opt/homebrew/include/glm/ext/matrix_float4x3.hpp:
 
@@ -6116,8 +6275,6 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 
 /opt/homebrew/include/glm/detail/type_mat4x3.inl:
 
-/opt/homebrew/include/glm/detail/type_mat3x4.hpp:
-
 /opt/homebrew/include/glm/detail/type_mat4x3.hpp:
 
 /opt/homebrew/include/glm/detail/type_mat3x3.hpp:
@@ -6152,13 +6309,65 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 
 /opt/homebrew/include/glm/detail/_vectorize.hpp:
 
-/opt/homebrew/include/glm/vector_relational.hpp:
-
 /opt/homebrew/include/glm/common.hpp:
 
 /opt/homebrew/include/glm/ext/matrix_double2x4_precision.hpp:
 
 /Users/jacoblandman/Documents/Code/Chimes_of_Eternity/src/water_simulation.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_fsobj_id_t.h:
+
+/opt/homebrew/include/glm/ext/vector_uint3.hpp:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_fsid_t.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/vm_sync.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/vm_page_size.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/vm_inherit.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/vm_behavior.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/task_policy.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/task_info.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/vm_param.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/thread_status.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/thread_state.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/exception.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/mach_voucher_types.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/mach_traps.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/host_special_ports.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/host_notify.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/exception_types.h:
+
+/opt/homebrew/include/glm/ext/matrix_float4x4_precision.hpp:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/error.h:
+
+/opt/homebrew/include/glm/detail/type_mat3x4.hpp:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/vm_param.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/thread_state.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/exception.h:
+
+/opt/homebrew/include/glm/ext/vector_int1.hpp:
+
+/opt/homebrew/include/glm/ext/matrix_float4x3_precision.hpp:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/device/device_types.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/random:
 
@@ -6260,6 +6469,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/function.h:
 
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/libkern/OSTypes.h:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/binder2nd.h:
 
 /opt/homebrew/include/glm/integer.hpp:
@@ -6273,6 +6484,18 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gltypes.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/OpenGLAvailability.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework/Headers/pwr_mgt/IOPMLibDefs.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework/Headers/pwr_mgt/IOPMKeys.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework/Headers/IOReturn.h:
+
+/opt/homebrew/include/glm/vector_relational.hpp:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework/Headers/IOMapTypes.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework/Headers/IOKitKeys.h:
 
 /Users/jacoblandman/Documents/Code/Chimes_of_Eternity/src/main.cpp:
 
@@ -6350,6 +6573,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h:
 
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/kmod.h:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/select.h:
@@ -6421,6 +6646,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_sigaltstack.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_s_ifmt.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework/Headers/pwr_mgt/IOPMLib.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_rune_t.h:
 
@@ -6495,6 +6722,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_mutex_t.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_key_t.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/thread_status.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_condattr_t.h:
 
@@ -6616,6 +6845,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/version:
 
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/host_info.h:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/dispatch/group.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_void.h:
@@ -6641,6 +6872,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/stdint.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/ratio:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/std_types.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ctype.h:
 
@@ -6858,6 +7091,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_array.h:
 
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/mach_init.h:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/unary_negate.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_arithmetic.h:
@@ -6867,6 +7102,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/boolean.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_allocator.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/vm_statistics.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/invoke.h:
 
@@ -7002,6 +7239,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/errc.h:
 
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/vm_region.h:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__random/clamp_to_integral.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__verbose_trap:
@@ -7041,6 +7280,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__atomic/memory_order.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__ranges/data.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach_debug/ipc_info.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__ranges/dangling.h:
 
@@ -7166,6 +7407,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/errno.h:
 
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/vm_attributes.h:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__math/rounding_functions.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/concepts:
@@ -7252,6 +7495,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/os/availability.h:
 
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/task_inspect.h:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__cstddef/size_t.h:
@@ -7336,6 +7581,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/ostream.h:
 
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/processor_info.h:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_uint32_t.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cstdlib:
@@ -7363,6 +7610,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/incrementable_traits.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__new/align_val_t.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/mach_types.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/unary_function.h:
 
@@ -7708,6 +7957,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/ranges_iterator_concept.h:
 
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework/Headers/IOKitLib.h:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/radix_sort.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/static_bounded_iter.h:
@@ -7723,6 +7974,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 /opt/homebrew/include/glm/ext/vector_uint1_sized.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/partition_point.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/policy.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/ctype.h:
 
@@ -7758,6 +8011,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__configuration/abi.h:
 
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/processor_info.h:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/ostream_iterator.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/reference_wrapper.h:
@@ -7789,6 +8044,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/initializer_list:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sched.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/vm_types.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__concepts/predicate.h:
 
@@ -7841,6 +8098,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/iterator_operations.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/is_sorted_until.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/thread_info.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_wctype_t.h:
 
@@ -8018,6 +8277,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/destruct_n.h:
 
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework/Headers/OSMessageNotification.h:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_types.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_time.h:
@@ -8089,6 +8350,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/CoreAudioClock.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_mcontext.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/task_special_ports.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioOutputUnit.h:
 
@@ -8264,6 +8527,10 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/assert.h:
 
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/thread_policy.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/dyld_kernel.h:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioUnitParameters.h:
 
 /opt/homebrew/include/glm/detail/type_mat2x4.hpp:
@@ -8286,6 +8553,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_always_bitcastable.h:
 
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/thread_status.h:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFCalendar.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CFMessagePort.h:
@@ -8297,6 +8566,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 /opt/homebrew/include/glm/ext/matrix_double2x2_precision.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__configuration/language.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework/Headers/IOTypes.h:
 
 /Library/Developer/CommandLineTools/usr/lib/clang/21/include/ptrcheck.h:
 
@@ -8321,6 +8592,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/remove_cvref.h:
 
 /opt/homebrew/include/glm/ext/vector_uint3_sized.hpp:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/thread_special_ports.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_wctrans_t.h:
 
@@ -8354,6 +8627,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__log_hardening_failure:
 
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/vm_purgable.h:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/MusicPlayer.h:
 
 /opt/homebrew/include/glm/detail/type_vec1.hpp:
@@ -8379,6 +8654,8 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/numeric:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreMIDI.framework/Headers/MIDIServices.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/memory_object_types.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/none_of.h:
 
@@ -8415,6 +8692,10 @@ CMakeFiles/Chimes.dir/src/window.cpp.o: /Users/jacoblandman/Documents/Code/Chime
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AUComponent.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__concepts/equality_comparable.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/vm_prot.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/processor_info.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__math/fma.h:
 

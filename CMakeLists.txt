@@ -23,6 +23,8 @@ add_executable(Chimes
 target_link_libraries(Chimes PRIVATE
     OpenGL::GL
     glfw
+    "-framework IOKit"
+    "-framework CoreFoundation"
 )
 
 # On Linux, miniaudio and standard multithreading require explicit system libraries

@@ -5,6 +5,8 @@
 #include "renderer.h"
 #include "audio_manager.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include <IOKit/pwr_mgt/IOPMLib.h>
+#include <CoreFoundation/CoreFoundation.h>
 #include <iostream>
 #include <chrono>
 #include <vector>
@@ -67,7 +69,7 @@ static glm::vec3 generate_vibrant_color(std::mt19937& gen) {
     return glm::vec3(1.0f);
 }
 
-int main() {
+int main(int argc, char* argv[]) {
     try {
         Window window(1920, 1080, "Water Surface in the Abyss", true);
 
@@ -93,6 +95,58 @@ int main() {
             std::cerr << "Warning: Failed to initialize DSP audio engine." << std::endl;
         }
 
+        // --- CENTER DOT SETUP ---
+        bool show_center_dot = false;
+        
+        // A vertex shader that generates a quad without needing a VBO
+        const char* vs_src = "#version 330 core\n"
+            "const vec2 verts[4] = vec2[4](vec2(-1,-1), vec2(1,-1), vec2(-1,1), vec2(1,1));\n"
+            "out vec2 uv;\n"
+            "uniform vec2 scale;\n"
+            "void main() {\n"
+            "    uv = verts[gl_VertexID];\n"
+            "    gl_Position = vec4(uv * scale, 0.0, 1.0);\n"
+            "}\n";
+            
+        // A fragment shader that draws a perfectly smooth, anti-aliased circle
+        const char* fs_src = "#version 330 core\n"
+            "in vec2 uv;\n"
+            "out vec4 FragColor;\n"
+            "void main() {\n"
+            "    float dist = length(uv);\n"
+            "    float alpha = 1.0 - smoothstep(0.70, 1.0, dist);\n"
+            "    if (alpha <= 0.0) discard;\n"
+            "    FragColor = vec4(1.0, 1.0, 1.0, alpha * 0.50);\n" // Soft white, 50% opacity
+            "}\n";
+
+        auto compile = [](GLenum type, const char* src) {
+            GLuint s = glCreateShader(type);
+            glShaderSource(s, 1, &src, nullptr);
+            glCompileShader(s);
+            return s;
+        };
+        
+        GLuint vs = compile(GL_VERTEX_SHADER, vs_src);
+        GLuint fs = compile(GL_FRAGMENT_SHADER, fs_src);
+        GLuint dot_shader = glCreateProgram();
+        glAttachShader(dot_shader, vs);
+        glAttachShader(dot_shader, fs);
+        glLinkProgram(dot_shader);
+        glDeleteShader(vs);
+        glDeleteShader(fs);
+
+        GLuint dot_vao = 0;
+        glGenVertexArrays(1, &dot_vao);
+
+        // --- PREVENT DISPLAY SLEEP ---
+        IOPMAssertionID sleep_assertion_id;
+        IOPMAssertionCreateWithName(
+            kIOPMAssertionTypeNoDisplaySleep, 
+            kIOPMAssertionLevelOn, 
+            CFSTR("Water Abyss Simulation Running"), 
+            &sleep_assertion_id
+        );
+
         glEnable(GL_DEPTH_TEST);
         std::random_device rd;
         std::mt19937 gen(rd());
@@ -113,8 +167,7 @@ int main() {
         std::uniform_real_distribution<float> harmonic_base_amp_dist(0.02f, 0.08f);
 
         // --- VISUAL DISTRIBUTIONS ---
-        // Centered roughly around the original 0.16f size and 0.011f magnitude
-        std::uniform_real_distribution<float> ripple_size_dist(0.10f, 0.25f);
+        std::uniform_real_distribution<float> ripple_size_dist(0.08f, 0.3f);
         std::uniform_real_distribution<float> ripple_mag_dist(0.005f, 0.02f);
 
         constexpr int NUM_TIMERS = 8;
@@ -125,16 +178,28 @@ int main() {
 
         std::vector<AnimatedLight> lights;
         auto last_frame_time = std::chrono::steady_clock::now();
+        float total_time_elapsed = 0.0f; 
+
+        bool d_key_was_pressed = false;
 
         while (!window.should_close()) {
             window.poll_events();
+            
             if (glfwGetKey(window.get_native_window(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
                 glfwSetWindowShouldClose(window.get_native_window(), true);
             }
 
+            // Toggle center dot via 'D' key press (edge detected)
+            bool d_key_is_pressed = (glfwGetKey(window.get_native_window(), GLFW_KEY_D) == GLFW_PRESS);
+            if (d_key_is_pressed && !d_key_was_pressed) {
+                show_center_dot = !show_center_dot;
+            }
+            d_key_was_pressed = d_key_is_pressed;
+
             auto current_time = std::chrono::steady_clock::now();
             float dt = std::chrono::duration<float>(current_time - last_frame_time).count();
             last_frame_time = current_time;
+            total_time_elapsed += dt;
 
             int display_w, display_h;
             window.get_framebuffer_size(&display_w, &display_h);
@@ -148,9 +213,67 @@ int main() {
                     float drop_x = pos_dist(gen);
                     float drop_z = pos_dist(gen);
 
+                    // --- 12-STAGE TONAL CYCLE MATH (720s Total / 60s Stage) ---
+                    const float CYCLE_DUR = 720.0f;
+                    const float STAGE_DUR = 60.0f; 
+                    
+                    float cycle_time = std::fmod(total_time_elapsed, CYCLE_DUR);
+                    int current_stage = static_cast<int>(cycle_time / STAGE_DUR);
+                    float stage_fraction = std::fmod(cycle_time, STAGE_DUR) / STAGE_DUR;
+
+                    // Circle of Fifths base notes (Semitones from C)
+                    int circle_roots[12] = {0, 7, 2, 9, 4, 11, 6, 1, 8, 3, 10, 5};
+                    int current_root = circle_roots[current_stage];
+
+                    // Pentatonic offsets in Circle of Fifths order: Root, P5, M2, M6, M3
+                    int pentatonic_offsets[5] = {0, 7, 2, 9, 4};
+
+                    // The peak of the distribution slides from 0.0 to 1.5 over the stage
+                    float shift = stage_fraction * 1.5f; 
+                    
+                    std::vector<double> weights(5, 0.0);
+                    for (int j = 0; j < 5; ++j) {
+                        float diff = j - shift;
+                        if (diff >= 0.0f) {
+                            // Exponential decay to the right
+                            weights[j] = std::exp(-1.1f * diff); 
+                        } else {
+                            // Sharper falloff to the left so the root fades out as we shift
+                            weights[j] = std::exp(-2.5f * std::abs(diff));
+                        }
+                        
+                        // Clamp the tail: anything falling below ~0.15 weight becomes 0% chance.
+                        weights[j] -= 0.15f; 
+                        if (weights[j] < 0.0f) weights[j] = 0.0f;
+                    }
+
+                    // discrete_distribution normalizes the weights automatically
+                    std::discrete_distribution<int> index_dist(weights.begin(), weights.end());
+                    int chosen_idx = index_dist(gen);
+                    int note_class = (current_root + pentatonic_offsets[chosen_idx]) % 12;
+
+                    // --- REGISTER/OCTAVE SELECTION ---
+                    std::vector<float> valid_freqs;
+                    const float MIN_FREQ = 100.0f;
+                    const float MAX_FREQ = 1000.0f;
+                    
+                    for (int oct = 1; oct <= 8; ++oct) {
+                        int midi_note = note_class + (oct * 12);
+                        float freq = 440.0f * std::pow(2.0f, (midi_note - 69) / 12.0f);
+                        if (freq >= MIN_FREQ && freq <= MAX_FREQ) {
+                            valid_freqs.push_back(freq);
+                        }
+                    }
+
+                    // Weight towards the middle registers using a normal distribution
+                    float mid_register = (valid_freqs.size() - 1) / 2.0f;
+                    std::normal_distribution<float> oct_dist(mid_register, 0.8f);
+                    int chosen_oct_idx = static_cast<int>(std::round(oct_dist(gen)));
+                    chosen_oct_idx = std::clamp(chosen_oct_idx, 0, static_cast<int>(valid_freqs.size() - 1));
+
                     // --- GENERATE AUDIO CHIME ---
                     ChimeConfig chime;
-                    chime.pitch = scale[pitch_dist(gen)];
+                    chime.pitch = valid_freqs[chosen_oct_idx];
                     chime.volume = audio_vol_dist(gen);
                     chime.decay = audio_decay_dist(gen);
                     chime.pan = std::clamp(drop_x / 0.45f, -1.0f, 1.0f);
@@ -176,7 +299,7 @@ int main() {
                     light.position = glm::vec3(drop_x + offset_x, height_dist(gen), drop_z + offset_z);
                     light.color = generate_vibrant_color(gen);
                     light.peak_intensity = std::clamp(intensity_dist(gen), 0.15f, 1.0f);
-                    light.decay = chime.decay; // Perfectly matches audio tail
+                    light.decay = chime.decay; 
                     
                     lights.push_back(light);
 
@@ -216,8 +339,31 @@ int main() {
             }
 
             renderer.render(mesh, view, proj, cam_pos, active_light_data);
+
+            if (show_center_dot) {
+                glDisable(GL_DEPTH_TEST);
+                
+                glEnable(GL_BLEND);
+                glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                glUseProgram(dot_shader);
+                
+                float dot_radius = 4.5f;
+                glUniform2f(glGetUniformLocation(dot_shader, "scale"), 
+                            (dot_radius * 2.0f) / (float)display_w, 
+                            (dot_radius * 2.0f) / (float)display_h);
+
+                glBindVertexArray(dot_vao);
+                glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+                glBindVertexArray(0);
+                
+                glDisable(GL_BLEND);
+                glEnable(GL_DEPTH_TEST);
+            }
+
             window.swap_buffers();
         }
+        IOPMAssertionRelease(sleep_assertion_id);
+
     } 
     catch (const std::exception& e) {
         std::cerr << "Fatal Error: " << e.what() << std::endl;
