@@ -63,11 +63,11 @@ CMAKE_BINARY_DIR = /Users/jacoblandman/Documents/Code/Chimes_of_Eternity/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/Chimes_of_Eternity.dir/all
+all: CMakeFiles/Chimes.dir/all
 .PHONY : all
 
 # The main recursive "codegen" target.
-codegen: CMakeFiles/Chimes_of_Eternity.dir/codegen
+codegen: CMakeFiles/Chimes.dir/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
@@ -75,40 +75,40 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/Chimes_of_Eternity.dir/clean
+clean: CMakeFiles/Chimes.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/Chimes_of_Eternity.dir
+# Target rules for target CMakeFiles/Chimes.dir
 
 # All Build rule for target.
-CMakeFiles/Chimes_of_Eternity.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes_of_Eternity.dir/build.make CMakeFiles/Chimes_of_Eternity.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes_of_Eternity.dir/build.make CMakeFiles/Chimes_of_Eternity.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/jacoblandman/Documents/Code/Chimes_of_Eternity/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target Chimes_of_Eternity"
-.PHONY : CMakeFiles/Chimes_of_Eternity.dir/all
+CMakeFiles/Chimes.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes.dir/build.make CMakeFiles/Chimes.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes.dir/build.make CMakeFiles/Chimes.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/jacoblandman/Documents/Code/Chimes_of_Eternity/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target Chimes"
+.PHONY : CMakeFiles/Chimes.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/Chimes_of_Eternity.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/jacoblandman/Documents/Code/Chimes_of_Eternity/build/CMakeFiles 6
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Chimes_of_Eternity.dir/all
+CMakeFiles/Chimes.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/jacoblandman/Documents/Code/Chimes_of_Eternity/build/CMakeFiles 7
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Chimes.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/jacoblandman/Documents/Code/Chimes_of_Eternity/build/CMakeFiles 0
-.PHONY : CMakeFiles/Chimes_of_Eternity.dir/rule
+.PHONY : CMakeFiles/Chimes.dir/rule
 
 # Convenience name for target.
-Chimes_of_Eternity: CMakeFiles/Chimes_of_Eternity.dir/rule
-.PHONY : Chimes_of_Eternity
+Chimes: CMakeFiles/Chimes.dir/rule
+.PHONY : Chimes
 
 # codegen rule for target.
-CMakeFiles/Chimes_of_Eternity.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes_of_Eternity.dir/build.make CMakeFiles/Chimes_of_Eternity.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/jacoblandman/Documents/Code/Chimes_of_Eternity/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Finished codegen for target Chimes_of_Eternity"
-.PHONY : CMakeFiles/Chimes_of_Eternity.dir/codegen
+CMakeFiles/Chimes.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes.dir/build.make CMakeFiles/Chimes.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/jacoblandman/Documents/Code/Chimes_of_Eternity/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Finished codegen for target Chimes"
+.PHONY : CMakeFiles/Chimes.dir/codegen
 
 # clean rule for target.
-CMakeFiles/Chimes_of_Eternity.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes_of_Eternity.dir/build.make CMakeFiles/Chimes_of_Eternity.dir/clean
-.PHONY : CMakeFiles/Chimes_of_Eternity.dir/clean
+CMakeFiles/Chimes.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes.dir/build.make CMakeFiles/Chimes.dir/clean
+.PHONY : CMakeFiles/Chimes.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

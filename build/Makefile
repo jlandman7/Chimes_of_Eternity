@@ -117,24 +117,48 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Chimes_of_Eternity
+# Target rules for targets named Chimes
 
 # Build rule for target.
-Chimes_of_Eternity: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Chimes_of_Eternity
-.PHONY : Chimes_of_Eternity
+Chimes: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Chimes
+.PHONY : Chimes
 
 # fast build rule for target.
-Chimes_of_Eternity/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes_of_Eternity.dir/build.make CMakeFiles/Chimes_of_Eternity.dir/build
-.PHONY : Chimes_of_Eternity/fast
+Chimes/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes.dir/build.make CMakeFiles/Chimes.dir/build
+.PHONY : Chimes/fast
+
+src/audio_manager.o: src/audio_manager.cpp.o
+.PHONY : src/audio_manager.o
+
+# target to build an object file
+src/audio_manager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes.dir/build.make CMakeFiles/Chimes.dir/src/audio_manager.cpp.o
+.PHONY : src/audio_manager.cpp.o
+
+src/audio_manager.i: src/audio_manager.cpp.i
+.PHONY : src/audio_manager.i
+
+# target to preprocess a source file
+src/audio_manager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes.dir/build.make CMakeFiles/Chimes.dir/src/audio_manager.cpp.i
+.PHONY : src/audio_manager.cpp.i
+
+src/audio_manager.s: src/audio_manager.cpp.s
+.PHONY : src/audio_manager.s
+
+# target to generate assembly for a file
+src/audio_manager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes.dir/build.make CMakeFiles/Chimes.dir/src/audio_manager.cpp.s
+.PHONY : src/audio_manager.cpp.s
 
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
 # target to build an object file
 src/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes_of_Eternity.dir/build.make CMakeFiles/Chimes_of_Eternity.dir/src/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes.dir/build.make CMakeFiles/Chimes.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
 src/main.i: src/main.cpp.i
@@ -142,7 +166,7 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes_of_Eternity.dir/build.make CMakeFiles/Chimes_of_Eternity.dir/src/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes.dir/build.make CMakeFiles/Chimes.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -150,7 +174,7 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes_of_Eternity.dir/build.make CMakeFiles/Chimes_of_Eternity.dir/src/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes.dir/build.make CMakeFiles/Chimes.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
 src/renderer.o: src/renderer.cpp.o
@@ -158,7 +182,7 @@ src/renderer.o: src/renderer.cpp.o
 
 # target to build an object file
 src/renderer.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes_of_Eternity.dir/build.make CMakeFiles/Chimes_of_Eternity.dir/src/renderer.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes.dir/build.make CMakeFiles/Chimes.dir/src/renderer.cpp.o
 .PHONY : src/renderer.cpp.o
 
 src/renderer.i: src/renderer.cpp.i
@@ -166,7 +190,7 @@ src/renderer.i: src/renderer.cpp.i
 
 # target to preprocess a source file
 src/renderer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes_of_Eternity.dir/build.make CMakeFiles/Chimes_of_Eternity.dir/src/renderer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes.dir/build.make CMakeFiles/Chimes.dir/src/renderer.cpp.i
 .PHONY : src/renderer.cpp.i
 
 src/renderer.s: src/renderer.cpp.s
@@ -174,7 +198,7 @@ src/renderer.s: src/renderer.cpp.s
 
 # target to generate assembly for a file
 src/renderer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes_of_Eternity.dir/build.make CMakeFiles/Chimes_of_Eternity.dir/src/renderer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes.dir/build.make CMakeFiles/Chimes.dir/src/renderer.cpp.s
 .PHONY : src/renderer.cpp.s
 
 src/water_mesh.o: src/water_mesh.cpp.o
@@ -182,7 +206,7 @@ src/water_mesh.o: src/water_mesh.cpp.o
 
 # target to build an object file
 src/water_mesh.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes_of_Eternity.dir/build.make CMakeFiles/Chimes_of_Eternity.dir/src/water_mesh.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes.dir/build.make CMakeFiles/Chimes.dir/src/water_mesh.cpp.o
 .PHONY : src/water_mesh.cpp.o
 
 src/water_mesh.i: src/water_mesh.cpp.i
@@ -190,7 +214,7 @@ src/water_mesh.i: src/water_mesh.cpp.i
 
 # target to preprocess a source file
 src/water_mesh.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes_of_Eternity.dir/build.make CMakeFiles/Chimes_of_Eternity.dir/src/water_mesh.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes.dir/build.make CMakeFiles/Chimes.dir/src/water_mesh.cpp.i
 .PHONY : src/water_mesh.cpp.i
 
 src/water_mesh.s: src/water_mesh.cpp.s
@@ -198,7 +222,7 @@ src/water_mesh.s: src/water_mesh.cpp.s
 
 # target to generate assembly for a file
 src/water_mesh.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes_of_Eternity.dir/build.make CMakeFiles/Chimes_of_Eternity.dir/src/water_mesh.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes.dir/build.make CMakeFiles/Chimes.dir/src/water_mesh.cpp.s
 .PHONY : src/water_mesh.cpp.s
 
 src/water_simulation.o: src/water_simulation.cpp.o
@@ -206,7 +230,7 @@ src/water_simulation.o: src/water_simulation.cpp.o
 
 # target to build an object file
 src/water_simulation.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes_of_Eternity.dir/build.make CMakeFiles/Chimes_of_Eternity.dir/src/water_simulation.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes.dir/build.make CMakeFiles/Chimes.dir/src/water_simulation.cpp.o
 .PHONY : src/water_simulation.cpp.o
 
 src/water_simulation.i: src/water_simulation.cpp.i
@@ -214,7 +238,7 @@ src/water_simulation.i: src/water_simulation.cpp.i
 
 # target to preprocess a source file
 src/water_simulation.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes_of_Eternity.dir/build.make CMakeFiles/Chimes_of_Eternity.dir/src/water_simulation.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes.dir/build.make CMakeFiles/Chimes.dir/src/water_simulation.cpp.i
 .PHONY : src/water_simulation.cpp.i
 
 src/water_simulation.s: src/water_simulation.cpp.s
@@ -222,7 +246,7 @@ src/water_simulation.s: src/water_simulation.cpp.s
 
 # target to generate assembly for a file
 src/water_simulation.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes_of_Eternity.dir/build.make CMakeFiles/Chimes_of_Eternity.dir/src/water_simulation.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes.dir/build.make CMakeFiles/Chimes.dir/src/water_simulation.cpp.s
 .PHONY : src/water_simulation.cpp.s
 
 src/window.o: src/window.cpp.o
@@ -230,7 +254,7 @@ src/window.o: src/window.cpp.o
 
 # target to build an object file
 src/window.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes_of_Eternity.dir/build.make CMakeFiles/Chimes_of_Eternity.dir/src/window.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes.dir/build.make CMakeFiles/Chimes.dir/src/window.cpp.o
 .PHONY : src/window.cpp.o
 
 src/window.i: src/window.cpp.i
@@ -238,7 +262,7 @@ src/window.i: src/window.cpp.i
 
 # target to preprocess a source file
 src/window.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes_of_Eternity.dir/build.make CMakeFiles/Chimes_of_Eternity.dir/src/window.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes.dir/build.make CMakeFiles/Chimes.dir/src/window.cpp.i
 .PHONY : src/window.cpp.i
 
 src/window.s: src/window.cpp.s
@@ -246,7 +270,7 @@ src/window.s: src/window.cpp.s
 
 # target to generate assembly for a file
 src/window.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes_of_Eternity.dir/build.make CMakeFiles/Chimes_of_Eternity.dir/src/window.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Chimes.dir/build.make CMakeFiles/Chimes.dir/src/window.cpp.s
 .PHONY : src/window.cpp.s
 
 # Help Target
@@ -257,7 +281,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... Chimes_of_Eternity"
+	@echo "... Chimes"
+	@echo "... src/audio_manager.o"
+	@echo "... src/audio_manager.i"
+	@echo "... src/audio_manager.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

@@ -1,7 +1,9 @@
+#define GL_SILENCE_DEPRECATION
 #include "window.h"
 #include "water_simulation.h"
 #include "water_mesh.h"
 #include "renderer.h"
+#include "audio_manager.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 #include <chrono>
@@ -10,32 +12,32 @@
 #include <cmath>
 #include <algorithm>
 
-// Gaussian light profile centered at 4.5 seconds (9s total lifetime)
 struct AnimatedLight {
     glm::vec3 position;
     glm::vec3 color;
     float age = 0.0f;
-    float lifetime = 9.0f;        // Mean duration (~9s)
-    float peak_intensity = 0.7f;  // Target max intensity (~70%)
-    float peak_time = 4.5f;       // Gaussian bell curve peak at 4.5s
-    float sigma = 1.50f;          // Spread (~6-sigma spans 0s to 9s)
+    float decay = 1.0f; // Linked to audio tail        
+    float peak_intensity = 0.7f;  
 
     float get_current_intensity() const {
-        if (age < 0.0f || age > lifetime) return 0.0f;
-        float diff = age - peak_time;
-        // Gaussian envelope: I(t) = A * exp(-(t - t_peak)^2 / (2 * sigma^2))
-        return peak_intensity * std::exp(-(diff * diff) / (2.0f * sigma * sigma));
+        // Calculate the exact same curve the audio uses
+        float raw_envelope = std::exp(-decay * age);
+        
+        // Remap it so it hits absolute 0.0 right as the audio hits 0.001
+        float light_intensity = std::max(0.0f, (raw_envelope - 0.001f) / 0.999f);
+        
+        return light_intensity * peak_intensity;
     }
-
-    bool is_dead() const { return age >= lifetime; }
+    
+    bool is_dead() const { 
+        return get_current_intensity() <= 0.0f; 
+    }
 };
 
-// Independent stochastic timer using an exponential inter-arrival distribution
 struct ProcessTimer {
     float time_remaining = 0.0f;
-
     void sample_next(std::mt19937& gen, std::exponential_distribution<float>& dist) {
-        time_remaining = dist(gen); // Mean interval = 30.0 seconds
+        time_remaining = dist(gen);
     }
 };
 
@@ -78,31 +80,43 @@ int main() {
 
         WaterSimulation sim(sim_config);
         sim.initialize();
-
         WaterMesh mesh;
         mesh.initialize(sim);
-
         Renderer renderer;
+        
         if (!renderer.init()) {
             throw std::runtime_error("Failed to initialize OpenGL renderer");
         }
 
-        glEnable(GL_DEPTH_TEST);
+        AudioManager audio;
+        if (!audio.init()) {
+            std::cerr << "Warning: Failed to initialize DSP audio engine." << std::endl;
+        }
 
-        // Random Number Generators & Standard Distributions
+        glEnable(GL_DEPTH_TEST);
         std::random_device rd;
         std::mt19937 gen(rd());
 
-        // Poisson process rate lambda = 1.0 / 30.0 (mean interval = 30s per thread)
-        std::exponential_distribution<float> arrival_dist(1.0f / 40.0f);
-        
-        // Gaussian distributions for light properties (centered around 9s total lifetime)
-        std::normal_distribution<float> duration_dist(9.0f, 1.2f);      // Mean 9.0s duration
-        std::normal_distribution<float> intensity_dist(0.70f, 0.12f);   // Gaussian centered at 70% max
+        std::exponential_distribution<float> arrival_dist(1.0f / 32.0f);
+        std::normal_distribution<float> intensity_dist(0.60f, 0.12f);   
         std::uniform_real_distribution<float> pos_dist(-0.45f, 0.45f);
         std::uniform_real_distribution<float> height_dist(1.1f, 1.7f);
 
-        // 8 parallel independent process timers
+        // --- AUDIO DISTRIBUTIONS ---
+        std::vector<float> scale = { 220.0f, 261.63f, 293.66f, 329.63f, 392.00f, 
+                                     440.0f, 523.25f, 587.33f, 659.25f, 783.99f, 880.0f };
+        std::uniform_int_distribution<int> pitch_dist(0, scale.size() - 1);
+        std::uniform_real_distribution<float> audio_vol_dist(0.2f, 0.4f);
+        std::uniform_real_distribution<float> audio_decay_dist(0.2f, 0.5f);
+        std::uniform_int_distribution<int> harmonic_count_dist(1, 3);
+        std::uniform_real_distribution<float> harmonic_ratio_dist(2.0f, 5.0f);
+        std::uniform_real_distribution<float> harmonic_base_amp_dist(0.02f, 0.08f);
+
+        // --- VISUAL DISTRIBUTIONS ---
+        // Centered roughly around the original 0.16f size and 0.011f magnitude
+        std::uniform_real_distribution<float> ripple_size_dist(0.10f, 0.25f);
+        std::uniform_real_distribution<float> ripple_mag_dist(0.005f, 0.02f);
+
         constexpr int NUM_TIMERS = 8;
         ProcessTimer timers[NUM_TIMERS];
         for (int i = 0; i < NUM_TIMERS; ++i) {
@@ -114,7 +128,6 @@ int main() {
 
         while (!window.should_close()) {
             window.poll_events();
-
             if (glfwGetKey(window.get_native_window(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
                 glfwSetWindowShouldClose(window.get_native_window(), true);
             }
@@ -126,10 +139,8 @@ int main() {
             int display_w, display_h;
             window.get_framebuffer_size(&display_w, &display_h);
             glViewport(0, 0, display_w, display_h);
-
             float aspect = static_cast<float>(display_w) / static_cast<float>(display_h > 0 ? display_h : 1);
 
-            // Step process timers
             for (int i = 0; i < NUM_TIMERS; ++i) {
                 timers[i].time_remaining -= dt;
 
@@ -137,26 +148,42 @@ int main() {
                     float drop_x = pos_dist(gen);
                     float drop_z = pos_dist(gen);
 
-                    sim.add_drop(drop_x, drop_z, 0.16f, 0.011f);
+                    // --- GENERATE AUDIO CHIME ---
+                    ChimeConfig chime;
+                    chime.pitch = scale[pitch_dist(gen)];
+                    chime.volume = audio_vol_dist(gen);
+                    chime.decay = audio_decay_dist(gen);
+                    chime.pan = std::clamp(drop_x / 0.45f, -1.0f, 1.0f);
 
+                    int num_harmonics = harmonic_count_dist(gen);
+                    for(int h = 0; h < num_harmonics; ++h) {
+                        float ratio = harmonic_ratio_dist(gen);
+                        float amplitude = harmonic_base_amp_dist(gen) / (ratio * 0.5f); 
+                        chime.harmonics.push_back({ratio, amplitude});
+                    }
+                    audio.play_chime(chime);
+
+                    // --- GENERATE RIPPLES ---
+                    float current_ripple_size = ripple_size_dist(gen);
+                    float current_ripple_mag = ripple_mag_dist(gen);
+                    sim.add_drop(drop_x, drop_z, current_ripple_size, current_ripple_mag);
+
+                    // --- GENERATE SYNCHRONIZED LIGHT ---
                     AnimatedLight light;
                     float offset_x = pos_dist(gen) * 0.3f;
                     float offset_z = pos_dist(gen) * 0.3f;
                     
                     light.position = glm::vec3(drop_x + offset_x, height_dist(gen), drop_z + offset_z);
                     light.color = generate_vibrant_color(gen);
-                    light.lifetime = std::max(4.0f, duration_dist(gen));
-                    light.peak_time = 4.5f;                     // Explicit peak centered at 4.5 seconds
                     light.peak_intensity = std::clamp(intensity_dist(gen), 0.15f, 1.0f);
-                    light.sigma = light.lifetime / 6.0f;        // 3-sigma left, 3-sigma right
-
+                    light.decay = chime.decay; // Perfectly matches audio tail
+                    
                     lights.push_back(light);
 
                     timers[i].sample_next(gen, arrival_dist);
                 }
             }
 
-            // Advance lights and calculate Gaussian intensity profile
             std::vector<LightData> active_light_data;
             for (auto it = lights.begin(); it != lights.end(); ) {
                 it->age += dt;
@@ -165,7 +192,7 @@ int main() {
                 if (it->is_dead()) {
                     it = lights.erase(it);
                 } else {
-                    if (intensity > 0.001f) {
+                    if (intensity > 0.0f) {
                         active_light_data.push_back({ it->position, it->color, intensity });
                     }
                     ++it;
@@ -189,7 +216,6 @@ int main() {
             }
 
             renderer.render(mesh, view, proj, cam_pos, active_light_data);
-
             window.swap_buffers();
         }
     } 
@@ -197,6 +223,5 @@ int main() {
         std::cerr << "Fatal Error: " << e.what() << std::endl;
         return -1;
     }
-
     return 0;
 }
