@@ -67,24 +67,29 @@ void AudioManager::data_callback(ma_device* pDevice, void* pOutput, const void* 
 
         for (ma_uint32 i = 0; i < frameCount; ++i) {
             float t = chime.time_elapsed;
-            float envelope = std::exp(-chime.config.decay * t);
             
-            if (envelope < 0.001f) {
+            // 1. Calculate ONE master envelope for the entire chime
+            float master_envelope = std::exp(-chime.config.decay * t);
+            
+            // 2. Gate the chime based ONLY on the master envelope
+            if (master_envelope < 0.001f) {
                 chime.is_dead = true;
                 break; 
             }
 
-            float sample = std::sin(2.0f * M_PI * chime.config.pitch * t);
+            // 3. Sum the raw continuous waveforms
+            float raw_waveform = std::sin(2.0f * M_PI * chime.config.pitch * t);
             
             for (const auto& h : chime.config.harmonics) {
-                sample += h.second * std::sin(2.0f * M_PI * (chime.config.pitch * h.first) * t);
+                raw_waveform += h.second * std::sin(2.0f * M_PI * (chime.config.pitch * h.first) * t);
             }
 
-            sample *= envelope * chime.config.volume;
+            // 4. Apply the envelope and volume to the summed wave
+            float final_sample = raw_waveform * master_envelope * chime.config.volume;
 
             // Apply spatial gains to left and right channels
-            pOutputF32[i * 2 + 0] += sample * left_gain;  // Left 
-            pOutputF32[i * 2 + 1] += sample * right_gain; // Right 
+            pOutputF32[i * 2 + 0] += final_sample * left_gain;  // Left 
+            pOutputF32[i * 2 + 1] += final_sample * right_gain; // Right 
 
             chime.time_elapsed += 1.0f / sample_rate;
         }

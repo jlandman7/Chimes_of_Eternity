@@ -71,6 +71,7 @@ static glm::vec3 generate_vibrant_color(std::mt19937& gen) {
 
 int main(int argc, char* argv[]) {
     try {
+        glfwWindowHint(GLFW_DECORATED, GLFW_FALSE); // Removes the macOS title bar/border seam
         Window window(1920, 1080, "Water Surface in the Abyss", true);
 
         WaterSimulationConfig sim_config;
@@ -151,7 +152,7 @@ int main(int argc, char* argv[]) {
         std::random_device rd;
         std::mt19937 gen(rd());
 
-        std::exponential_distribution<float> arrival_dist(1.0f / 32.0f);
+        std::exponential_distribution<float> arrival_dist(1.0f / 38.0f);
         std::normal_distribution<float> intensity_dist(0.60f, 0.12f);   
         std::uniform_real_distribution<float> pos_dist(-0.45f, 0.45f);
         std::uniform_real_distribution<float> height_dist(1.1f, 1.7f);
