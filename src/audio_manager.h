@@ -16,7 +16,7 @@ struct ChimeConfig {
 // Internal tracker for a chime currently playing
 struct ActiveChime {
     ChimeConfig config;
-    float time_elapsed = 0.0f;
+    double time_elapsed = 0.0; // Change from float to double
     bool is_dead = false;
 };
 
