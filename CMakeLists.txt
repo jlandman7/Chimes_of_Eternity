@@ -41,7 +41,7 @@ add_executable(Chimes_of_Eternity
 )
 
 # Link external libraries
-target_link_libraries(chimes_of_eternity PRIVATE
+target_link_libraries(Chimes_of_Eternity PRIVATE
     OpenGL::GL
     glfw
     glm::glm
