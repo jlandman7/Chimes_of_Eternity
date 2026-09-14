@@ -31,7 +31,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(glm)
 
 # Define the executable target
-add_executable(chimes_of_eternity
+add_executable(Chimes_of_Eternity
     src/main.cpp
     src/window.cpp
     src/water_simulation.cpp
