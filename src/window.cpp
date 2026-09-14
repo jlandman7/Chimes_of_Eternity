@@ -10,6 +10,7 @@ Window::Window(int width, int height, const std::string& title, bool fullscreen)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
+
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GL_TRUE);
@@ -22,8 +23,8 @@ Window::Window(int width, int height, const std::string& title, bool fullscreen)
         if (monitor) {
             const GLFWvidmode* mode = glfwGetVideoMode(monitor);
             
-            // Force an exact match to the monitor's native mode. 
-            // This tells macOS to bypass the desktop compositor and drop all shadows.
+            // Force an exact match to the monitor's native mode to bypass 
+            // the desktop compositor and drop shadows[cite: 16].
             glfwWindowHint(GLFW_RED_BITS, mode->redBits);
             glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
             glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
@@ -35,7 +36,6 @@ Window::Window(int width, int height, const std::string& title, bool fullscreen)
         }
     }
 
-    // Passing the monitor here guarantees the menu bar is hidden via native Spaces
     window_handle = glfwCreateWindow(width, height, title.c_str(), monitor, nullptr);
     if (!window_handle) {
         glfwTerminate();

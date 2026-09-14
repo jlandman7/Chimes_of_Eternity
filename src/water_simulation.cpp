@@ -27,28 +27,31 @@ float WaterSimulation::laplacian(int x, int y) const {
 void WaterSimulation::step() {
     float dx = config.domain_size / static_cast<float>(config.grid_resolution - 1);
     
-    // CFL stability adaptive sub-stepping
+    // CFL stability adaptive sub-stepping[cite: 14]
     float max_safe_dt = 0.4f * dx / config.wave_speed;
-    int substeps = static_cast<int>(std::ceil(config.simulation_timestep / max_safe_dt));
-    substeps = std::max(1, substeps);
+    int substeps = std::max(1, static_cast<int>(std::ceil(config.simulation_timestep / max_safe_dt)));
 
     float sub_dt = config.simulation_timestep / static_cast<float>(substeps);
     float alpha = (config.wave_speed * sub_dt) / dx;
     float alpha_sq = alpha * alpha;
     float sub_damping = std::pow(config.damping, 1.0f / static_cast<float>(substeps));
 
-    float radius_limit = config.domain_size * 0.48f;
+    // Hoisted invariants out of the inner loop
+    float radius_limit_sq = (config.domain_size * 0.48f) * (config.domain_size * 0.48f);
+    float half_domain = config.domain_size * 0.5f;
 
     for (int s = 0; s < substeps; ++s) {
         for (int y = 0; y < config.grid_resolution; ++y) {
+            float pz = -half_domain + y * dx;
+            float pz_sq = pz * pz;
+
             for (int x = 0; x < config.grid_resolution; ++x) {
                 int idx = index(x, y);
 
-                float px = -config.domain_size * 0.5f + x * dx;
-                float pz = -config.domain_size * 0.5f + y * dx;
-
+                float px = -half_domain + x * dx;
+                
                 // Clamp nodes outside circular boundary radius
-                if (px * px + pz * pz >= radius_limit * radius_limit) {
+                if (px * px + pz_sq >= radius_limit_sq) {
                     heights_next[idx] = 0.0f;
                     continue;
                 }
@@ -64,7 +67,6 @@ void WaterSimulation::step() {
 }
 
 void WaterSimulation::add_drop(float x, float z, float radius, float magnitude) {
-    // Convert world space coordinates [-domain_size/2, domain_size/2] to grid indices
     int center_x = static_cast<int>(((x / config.domain_size) + 0.5f) * config.grid_resolution);
     int center_z = static_cast<int>(((z / config.domain_size) + 0.5f) * config.grid_resolution);
     int r_cells = std::max(1, static_cast<int>((radius / config.domain_size) * config.grid_resolution));
@@ -74,17 +76,13 @@ void WaterSimulation::add_drop(float x, float z, float radius, float magnitude) 
             int gx = center_x + dx;
             int gz = center_z + dz;
 
-            // Boundary check
             if (gx >= 0 && gx < config.grid_resolution && gz >= 0 && gz < config.grid_resolution) {
                 float dist = std::sqrt(static_cast<float>(dx * dx + dz * dz));
                 
                 if (dist <= r_cells) {
-                    // Cosine falloff for a smooth, natural droplet impression
                     float factor = 0.5f * (1.0f + std::cos(3.14159265f * dist / r_cells));
-
-                    // ADDITIVE: Modify the existing displacement vector rather than setting it
-                    // Subtracting pushes the water surface downward at impact center
-                    heights[gz * config.grid_resolution + gx] -= magnitude * factor;                }
+                    heights[gz * config.grid_resolution + gx] -= magnitude * factor;
+                }
             }
         }
     }

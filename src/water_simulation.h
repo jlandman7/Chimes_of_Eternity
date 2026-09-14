@@ -13,6 +13,7 @@ struct WaterSimulationConfig {
 class WaterSimulation {
 public:
     explicit WaterSimulation(const WaterSimulationConfig& config);
+    
     void initialize();
     void step();
     void add_drop(float center_x, float center_z, float radius, float strength);

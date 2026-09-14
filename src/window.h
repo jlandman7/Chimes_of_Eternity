@@ -13,6 +13,10 @@ public:
     Window(int width, int height, const std::string& title, bool fullscreen = false);
     ~Window();
 
+    // Prevent copying
+    Window(const Window&) = delete;
+    Window& operator=(const Window&) = delete;
+
     bool should_close() const;
     void swap_buffers();
     void poll_events();

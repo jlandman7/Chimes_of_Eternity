@@ -207,6 +207,11 @@ int main(int argc, char* argv[]) {
             glViewport(0, 0, display_w, display_h);
             float aspect = static_cast<float>(display_w) / static_cast<float>(display_h > 0 ? display_h : 1);
 
+            const float CYCLE_DUR = 720.0f;
+            const float STAGE_DUR = 60.0f; 
+            const int circle_roots[12] = {0, 7, 2, 9, 4, 11, 6, 1, 8, 3, 10, 5};
+            const int pentatonic_offsets[5] = {0, 7, 2, 9, 4};
+
             for (int i = 0; i < NUM_TIMERS; ++i) {
                 timers[i].time_remaining -= dt;
 
@@ -214,20 +219,11 @@ int main(int argc, char* argv[]) {
                     float drop_x = pos_dist(gen);
                     float drop_z = pos_dist(gen);
 
-                    // --- 12-STAGE TONAL CYCLE MATH (720s Total / 60s Stage) ---
-                    const float CYCLE_DUR = 720.0f;
-                    const float STAGE_DUR = 60.0f; 
-                    
                     float cycle_time = std::fmod(total_time_elapsed, CYCLE_DUR);
                     int current_stage = static_cast<int>(cycle_time / STAGE_DUR);
                     float stage_fraction = std::fmod(cycle_time, STAGE_DUR) / STAGE_DUR;
 
-                    // Circle of Fifths base notes (Semitones from C)
-                    int circle_roots[12] = {0, 7, 2, 9, 4, 11, 6, 1, 8, 3, 10, 5};
                     int current_root = circle_roots[current_stage];
-
-                    // Pentatonic offsets in Circle of Fifths order: Root, P5, M2, M6, M3
-                    int pentatonic_offsets[5] = {0, 7, 2, 9, 4};
 
                     // The peak of the distribution slides from 0.0 to 1.5 over the stage
                     float shift = stage_fraction * 1.5f; 
