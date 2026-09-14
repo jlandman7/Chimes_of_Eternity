@@ -7,29 +7,44 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(OpenGL REQUIRED)
 
 # ---------------------------------------------------------
-# Automatically download and statically link GLFW
-# This prevents find_package failures on Windows CI runners
+# Automatically download dependencies
 # ---------------------------------------------------------
 include(FetchContent)
+
+# Fetch GLFW
 FetchContent_Declare(
     glfw
     GIT_REPOSITORY https://github.com/glfw/glfw.git
-    GIT_TAG 3.3.8 # Use a stable release tag
+    GIT_TAG 3.3.8
 )
-# Disable unnecessary GLFW components to speed up CI build times
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(glfw)
 
+# Fetch GLM
+FetchContent_Declare(
+    glm
+    GIT_REPOSITORY https://github.com/g-truc/glm.git
+    GIT_TAG 0.9.9.8
+)
+FetchContent_MakeAvailable(glm)
+
 # Define the executable target
-add_executable(Chimes_of_Eternity
+add_executable(chimes_of_eternity
     src/main.cpp
     src/window.cpp
     src/water_simulation.cpp
     src/water_mesh.cpp
     src/renderer.cpp
     src/audio_manager.cpp
+)
+
+# Link external libraries
+target_link_libraries(chimes_of_eternity PRIVATE
+    OpenGL::GL
+    glfw
+    glm::glm
 )
 
 # Link external libraries
