@@ -22,13 +22,16 @@ set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(glfw)
 
-# Fetch GLM
+# Fetch GLM as header-only (bypasses its broken CMakeLists.txt)
 FetchContent_Declare(
     glm
     GIT_REPOSITORY https://github.com/g-truc/glm.git
     GIT_TAG 0.9.9.8
 )
-FetchContent_MakeAvailable(glm)
+FetchContent_GetProperties(glm)
+if(NOT glm_POPULATED)
+    FetchContent_Populate(glm)
+endif()
 
 # Define the executable target
 add_executable(Chimes_of_Eternity
@@ -40,26 +43,14 @@ add_executable(Chimes_of_Eternity
     src/audio_manager.cpp
 )
 
-# Link external libraries
-target_link_libraries(Chimes_of_Eternity PRIVATE
-    OpenGL::GL
-    glfw
-    glm::glm
-)
+# Tell the executable where to find GLM headers
+target_include_directories(Chimes_of_Eternity PRIVATE ${glm_SOURCE_DIR})
 
-# Link external libraries
+# Link external libraries (Duplicate block removed)
 target_link_libraries(Chimes_of_Eternity PRIVATE
     OpenGL::GL
     glfw
 )
-
-# macOS specific system frameworks required for windowing
-if(APPLE)
-    target_link_libraries(Chimes_of_Eternity PRIVATE
-        "-framework IOKit"
-        "-framework CoreFoundation"
-    )
-endif()
 
 # Linux specific system frameworks required for threading and math
 if(UNIX AND NOT APPLE)
