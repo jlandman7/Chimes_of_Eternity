@@ -1,10 +1,5 @@
 #pragma once
 
-#ifdef _WIN32
-    #include <GL/gl.h>
-#else
-    #include <OpenGL/gl3.h>
-#endif
 #include <GLFW/glfw3.h>
 #include <string>
 

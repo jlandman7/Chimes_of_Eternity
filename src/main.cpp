@@ -4,6 +4,7 @@
 #include "water_mesh.h"
 #include "renderer.h"
 #include "audio_manager.h"
+#include <OpenGL/gl3.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <IOKit/pwr_mgt/IOPMLib.h>
 #include <CoreFoundation/CoreFoundation.h>
@@ -13,6 +14,9 @@
 #include <random>
 #include <cmath>
 #include <algorithm>
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
 
 struct AnimatedLight {
     glm::vec3 position;
@@ -358,6 +362,9 @@ int main(int argc, char* argv[]) {
             }
 
             window.swap_buffers();
+            #ifdef __EMSCRIPTEN__
+                emscripten_sleep(0);
+            #endif
         }
         IOPMAssertionRelease(sleep_assertion_id);
 

@@ -1,3 +1,5 @@
+#define GL_SILENCE_DEPRECATION
+#include <OpenGL/gl3.h>
 #include "water_mesh.h"
 #include <cmath>
 

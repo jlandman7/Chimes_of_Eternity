@@ -1,0 +1,40 @@
+name: Build and Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ] # Trigger on pushes to the main branch
+
+# Required permissions for deploying to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+      
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Emscripten
+        uses: mymindstorm/setup-emsdk@v14
+
+      - name: Build WebAssembly
+        run: |
+          mkdir public
+          # Replace this with your actual build command (e.g., make, cmake, or raw emcc)
+          # Make sure it outputs an index.html file into the 'public' folder.
+          emcc main.cpp -o public/index.html -s USE_WEBGL2=1 -s USE_GLFW=3 -s FULL_ES3=1 -s ASYNCIFY=1
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
