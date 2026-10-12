@@ -1,1 +1,1 @@
-An fun way to step outside your mind.
+A fun way to step outside your mind.
