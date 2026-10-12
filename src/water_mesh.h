@@ -3,6 +3,11 @@
 #include <GLFW/glfw3.h>
 #include <vector>
 #include <glm/glm.hpp>
+#ifdef __EMSCRIPTEN__
+#include <GLES3/gl3.h>
+#else
+#include <OpenGL/gl3.h>
+#endif
 #include "water_simulation.h"
 
 struct Vertex {

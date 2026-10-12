@@ -4,6 +4,11 @@
 #include <vector>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#ifdef __EMSCRIPTEN__
+#include <GLES3/gl3.h>
+#else
+#include <OpenGL/gl3.h>
+#endif
 #include "water_mesh.h"
 
 struct LightData {
