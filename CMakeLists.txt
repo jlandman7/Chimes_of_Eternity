@@ -79,3 +79,16 @@ else()
 endif()
 
 include(CPack)
+
+if(EMSCRIPTEN)
+    # Force the output to be an HTML file
+    set_target_properties(Chimes_of_Eternity PROPERTIES SUFFIX ".html")
+    
+    # Pass the WebGL, GLFW, and Asyncify flags to the linker
+    target_link_options(Chimes_of_Eternity PRIVATE 
+        "-s" "USE_WEBGL2=1" 
+        "-s" "USE_GLFW=3" 
+        "-s" "FULL_ES3=1" 
+        "-s" "ASYNCIFY=1"
+    )
+endif()

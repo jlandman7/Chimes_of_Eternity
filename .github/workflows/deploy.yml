@@ -26,10 +26,22 @@ jobs:
 
       - name: Build WebAssembly
         run: |
+          mkdir build
+          cd build
+          
+          # Run CMake using Emscripten's compiler wrappers
+          emcmake cmake ..
+          emmake make
+          
+          # Create the public directory and move the compiled web files there
+          cd ..
           mkdir public
-          # Replace this with your actual build command (e.g., make, cmake, or raw emcc)
-          # Make sure it outputs an index.html file into the 'public' folder.
-          emcc main.cpp -o public/index.html -s USE_WEBGL2=1 -s USE_GLFW=3 -s FULL_ES3=1 -s ASYNCIFY=1
+          
+          # Rename the HTML file to index.html so GitHub Pages serves it automatically
+          mv build/Chimes_of_Eternity.html public/index.html
+          mv build/Chimes_of_Eternity.js public/
+          mv build/Chimes_of_Eternity.wasm public/
+      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
