@@ -4,19 +4,24 @@
 #include "water_mesh.h"
 #include "renderer.h"
 #include "audio_manager.h"
+
+// Platform-specific headers
+#ifdef __EMSCRIPTEN__
+#include <GLES3/gl3.h>
+#include <emscripten.h>
+#else
 #include <OpenGL/gl3.h>
-#include <glm/gtc/matrix_transform.hpp>
 #include <IOKit/pwr_mgt/IOPMLib.h>
 #include <CoreFoundation/CoreFoundation.h>
+#endif
+
+#include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 #include <chrono>
 #include <vector>
 #include <random>
 #include <cmath>
 #include <algorithm>
-#ifdef __EMSCRIPTEN__
-#include <emscripten.h>
-#endif
 
 struct AnimatedLight {
     glm::vec3 position;
@@ -143,14 +148,16 @@ int main(int argc, char* argv[]) {
         GLuint dot_vao = 0;
         glGenVertexArrays(1, &dot_vao);
 
-        // --- PREVENT DISPLAY SLEEP ---
-        IOPMAssertionID sleep_assertion_id;
-        IOPMAssertionCreateWithName(
-            kIOPMAssertionTypeNoDisplaySleep, 
-            kIOPMAssertionLevelOn, 
-            CFSTR("Water Abyss Simulation Running"), 
-            &sleep_assertion_id
-        );
+        #ifndef __EMSCRIPTEN__
+            // --- PREVENT DISPLAY SLEEP (macOS native only) ---
+            IOPMAssertionID sleep_assertion_id;
+            IOPMAssertionCreateWithName(
+                kIOPMAssertionTypeNoDisplaySleep, 
+                kIOPMAssertionLevelOn, 
+                CFSTR("Water Abyss Simulation Running"), 
+                &sleep_assertion_id
+            );
+        #endif
 
         glEnable(GL_DEPTH_TEST);
         std::random_device rd;
@@ -366,7 +373,9 @@ int main(int argc, char* argv[]) {
                 emscripten_sleep(0);
             #endif
         }
-        IOPMAssertionRelease(sleep_assertion_id);
+        #ifndef __EMSCRIPTEN__
+            IOPMAssertionRelease(sleep_assertion_id);
+        #endif
 
     } 
     catch (const std::exception& e) {
