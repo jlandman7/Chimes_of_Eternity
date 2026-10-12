@@ -11,16 +11,19 @@ find_package(OpenGL REQUIRED)
 # ---------------------------------------------------------
 include(FetchContent)
 
+if(NOT EMSCRIPTEN)
 # Fetch GLFW
 FetchContent_Declare(
     glfw
     GIT_REPOSITORY https://github.com/glfw/glfw.git
     GIT_TAG 3.3.8
 )
+
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(glfw)
+endif()
 
 # Fetch GLM as header-only (bypasses its broken CMakeLists.txt)
 FetchContent_Declare(
@@ -47,10 +50,13 @@ add_executable(Chimes_of_Eternity
 target_include_directories(Chimes_of_Eternity PRIVATE ${glm_SOURCE_DIR})
 
 # Link external libraries (Duplicate block removed)
-target_link_libraries(Chimes_of_Eternity PRIVATE
-    OpenGL::GL
-    glfw
-)
+if(NOT EMSCRIPTEN)
+    # Link desktop GLFW and OpenGL for local builds
+    target_link_libraries(Chimes_of_Eternity PRIVATE glfw OpenGL::GL)
+else()
+    # For Emscripten, we rely on the -s USE_GLFW=3 flag added previously,
+    # so we don't link the desktop glfw target here.
+endif()
 
 # Linux specific system frameworks required for threading and math
 if(UNIX AND NOT APPLE)
@@ -81,10 +87,10 @@ endif()
 include(CPack)
 
 if(EMSCRIPTEN)
-    # Force the output to be an HTML file
     set_target_properties(Chimes_of_Eternity PROPERTIES SUFFIX ".html")
     
-    # Pass the WebGL, GLFW, and Asyncify flags to the linker
+    # Add flags to BOTH compilation and linking
+    target_compile_options(Chimes_of_Eternity PRIVATE "-s" "USE_WEBGL2=1" "-s" "USE_GLFW=3")
     target_link_options(Chimes_of_Eternity PRIVATE 
         "-s" "USE_WEBGL2=1" 
         "-s" "USE_GLFW=3" 
