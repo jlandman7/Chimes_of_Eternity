@@ -1,6 +1,99 @@
 #include "renderer.h"
 #include <iostream>
+#include <algorithm>
 
+// Header includes for OpenGL / WebGL
+#ifdef __EMSCRIPTEN__
+#include <GLES3/gl3.h>
+#else
+#ifdef __APPLE__
+#include <OpenGL/gl3.h>
+#endif
+#endif
+
+#ifdef __EMSCRIPTEN__
+// GLSL ES 3.00 shaders for WebGL 2
+static const char* vertex_shader_src = R"(
+#version 300 es
+layout (location = 0) in vec3 aPos;
+layout (location = 1) in vec3 aNormal;
+layout (location = 2) in vec2 aTexCoord;
+
+out vec3 WorldPos;
+out vec3 Normal;
+
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+
+void main() {
+    WorldPos = vec3(model * vec4(aPos, 1.0));
+    Normal = mat3(transpose(inverse(model))) * aNormal;
+    gl_Position = projection * view * vec4(WorldPos, 1.0);
+}
+)";
+
+static const char* fragment_shader_src = R"(
+#version 300 es
+precision highp float;
+
+out vec4 FragColor;
+
+in vec3 WorldPos;
+in vec3 Normal;
+
+struct Light {
+    vec3 position;
+    vec3 color;
+    float intensity;
+};
+
+const int MAX_LIGHTS = 12;
+uniform int u_numLights;
+uniform Light u_lights[MAX_LIGHTS];
+
+void main() {
+    vec3 N = normalize(Normal);
+    vec3 V = vec3(0.0, 1.0, 0.0); // Orthographic top-down view direction
+    
+    vec3 totalSpecular = vec3(0.0);
+
+    for (int i = 0; i < u_numLights; ++i) {
+        if (u_lights[i].intensity <= 0.0001) continue;
+
+        vec3 lightVec = u_lights[i].position - WorldPos;
+        float dist = length(lightVec);
+        vec3 L = lightVec / max(dist, 0.0001);
+        vec3 H = normalize(L + V);
+
+        float NdotL = max(dot(N, L), 0.0);
+        float NdotV = max(dot(N, V), 0.0);
+        float NdotH = max(dot(N, H), 0.0);
+
+        // Distance attenuation
+        float atten = 1.0 / (1.0 + 0.8 * dist + 0.4 * dist * dist);
+
+        // Water Fresnel (IOR = 1.333)
+        float F0 = 0.02;
+        float fresnel = F0 + (1.0 - F0) * pow(clamp(1.0 - NdotV, 0.0, 1.0), 5.0);
+
+        // Energy-conserving microfacet specular glint
+        float shininess = 192.0;
+        float specFactor = ((shininess + 8.0) / (8.0 * 3.14159265)) * pow(NdotH, shininess);
+
+        vec3 spec = u_lights[i].color * u_lights[i].intensity * specFactor * NdotL * fresnel * atten * 3.0;
+        totalSpecular += spec;
+    }
+
+    // Tone mapping and gamma correction
+    vec3 finalColor = totalSpecular / (totalSpecular + vec3(1.0));
+    finalColor = pow(finalColor, vec3(1.0 / 2.2));
+
+    FragColor = vec4(finalColor, 1.0);
+}
+)";
+#else
+// Desktop GLSL 3.30 shaders for macOS / Linux / Windows
 static const char* vertex_shader_src = R"(
 #version 330 core
 layout (location = 0) in vec3 aPos;
@@ -78,6 +171,7 @@ void main() {
     FragColor = vec4(finalColor, 1.0);
 }
 )";
+#endif
 
 Renderer::Renderer() = default;
 
