@@ -80,7 +80,11 @@ static glm::vec3 generate_vibrant_color(std::mt19937& gen) {
 
 int main(int argc, char* argv[]) {
     try {
-        glfwWindowHint(GLFW_DECORATED, GLFW_FALSE); // Removes the macOS title bar/border seam
+
+        #ifndef __EMSCRIPTEN__
+            glfwWindowHint(GLFW_DECORATED, GLFW_FALSE); // Removes macOS title bar/border seam
+        #endif
+
         Window window(1920, 1080, "Water Surface in the Abyss", true);
 
         WaterSimulationConfig sim_config;
