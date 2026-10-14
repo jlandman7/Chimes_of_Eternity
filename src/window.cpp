@@ -6,15 +6,17 @@ Window::Window(int width, int height, const std::string& title, bool fullscreen)
         throw std::runtime_error("Failed to initialize GLFW");
     }
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
+    #ifndef __EMSCRIPTEN__
+        // Desktop-only OpenGL 3.3 Core Profile hints
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
 
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GL_TRUE);
-#endif
+    #ifdef __APPLE__
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+        glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GL_TRUE);
+    #endif
 
     GLFWmonitor* monitor = nullptr;
 
@@ -24,7 +26,7 @@ Window::Window(int width, int height, const std::string& title, bool fullscreen)
             const GLFWvidmode* mode = glfwGetVideoMode(monitor);
             
             // Force an exact match to the monitor's native mode to bypass 
-            // the desktop compositor and drop shadows[cite: 16].
+            // the desktop compositor and drop shadows.
             glfwWindowHint(GLFW_RED_BITS, mode->redBits);
             glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
             glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
@@ -35,6 +37,11 @@ Window::Window(int width, int height, const std::string& title, bool fullscreen)
             height = mode->height;
         }
     }
+    #else
+        // WebAssembly / WebGL target:
+        // Skip monitor mode overrides and desktop OpenGL Core Profile hints.
+        GLFWmonitor* monitor = nullptr;
+    #endif
 
     window_handle = glfwCreateWindow(width, height, title.c_str(), monitor, nullptr);
     if (!window_handle) {
