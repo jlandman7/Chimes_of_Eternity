@@ -112,76 +112,46 @@ int main(int argc, char* argv[]) {
         // --- CENTER DOT SETUP ---
         bool show_center_dot = false;
         
-        #ifdef __EMSCRIPTEN__
-            const char* vs_src = "#version 300 es\n"
-                "const vec2 verts[4] = vec2[4](vec2(-1,-1), vec2(1,-1), vec2(-1,1), vec2(1,1));\n"
-                "out vec2 uv;\n"
-                "uniform vec2 scale;\n"
-                "void main() {\n"
-                "    uv = verts[gl_VertexID];\n"
-                "    gl_Position = vec4(uv * scale, 0.0, 1.0);\n"
-                "}\n";
-
-            const char* fs_src = "#version 300 es\n"
-                "precision mediump float;\n" // REQUIRED for WebGL 2 Fragment Shaders
-                "in vec2 uv;\n"
-                "out vec4 FragColor;\n"
-                "void main() {\n"
-                "    float dist = length(uv);\n"
-                "    float alpha = 1.0 - smoothstep(0.70, 1.0, dist);\n"
-                "    if (alpha <= 0.0) discard;\n"
-                "    FragColor = vec4(1.0, 1.0, 1.0, alpha * 0.50);\n"
-                "}\n";
-        #else
-            const char* vs_src = "#version 330 core\n"
-                "const vec2 verts[4] = vec2[4](vec2(-1,-1), vec2(1,-1), vec2(-1,1), vec2(1,1));\n"
-                "out vec2 uv;\n"
-                "uniform vec2 scale;\n"
-                "void main() {\n"
-                "    uv = verts[gl_VertexID];\n"
-                "    gl_Position = vec4(uv * scale, 0.0, 1.0);\n"
-                "}\n";
-
-            const char* fs_src = "#version 330 core\n"
-                "in vec2 uv;\n"
-                "out vec4 FragColor;\n"
-                "void main() {\n"
-                "    float dist = length(uv);\n"
-                "    float alpha = 1.0 - smoothstep(0.70, 1.0, dist);\n"
-                "    if (alpha <= 0.0) discard;\n"
-                "    FragColor = vec4(1.0, 1.0, 1.0, alpha * 0.50);\n"
-                "}\n";
-        #endif
-
-        auto compile = [](GLenum type, const char* src) {
-            GLuint s = glCreateShader(type);
-            glShaderSource(s, 1, &src, nullptr);
-            glCompileShader(s);
-            return s;
-        };
-        
-        GLuint vs = compile(GL_VERTEX_SHADER, vs_src);
-        GLuint fs = compile(GL_FRAGMENT_SHADER, fs_src);
-        GLuint dot_shader = glCreateProgram();
-        glAttachShader(dot_shader, vs);
-        glAttachShader(dot_shader, fs);
-        glLinkProgram(dot_shader);
-        glDeleteShader(vs);
-        glDeleteShader(fs);
-
-        GLuint dot_vao = 0;
-        glGenVertexArrays(1, &dot_vao);
-
-        #ifndef __EMSCRIPTEN__
-            // --- PREVENT DISPLAY SLEEP (macOS native only) ---
-            IOPMAssertionID sleep_assertion_id;
-            IOPMAssertionCreateWithName(
-                kIOPMAssertionTypeNoDisplaySleep, 
-                kIOPMAssertionLevelOn, 
-                CFSTR("Water Abyss Simulation Running"), 
-                &sleep_assertion_id
-            );
-        #endif
+#ifdef __EMSCRIPTEN__
+        const char* vs_src = "#version 300 es\n"
+            "const vec2 verts[4] = vec2[4](vec2(-1,-1), vec2(1,-1), vec2(-1,1), vec2(1,1));\n"
+            "out vec2 uv;\n"
+            "uniform vec2 scale;\n"
+            "void main() {\n"
+            "    uv = verts[gl_VertexID];\n"
+            "    gl_Position = vec4(uv * scale, 0.0, 1.0);\n"
+            "}\n";
+            
+        const char* fs_src = "#version 300 es\n"
+            "precision mediump float;\n"
+            "in vec2 uv;\n"
+            "out vec4 FragColor;\n"
+            "void main() {\n"
+            "    float dist = length(uv);\n"
+            "    float alpha = 1.0 - smoothstep(0.70, 1.0, dist);\n"
+            "    if (alpha <= 0.0) discard;\n"
+            "    FragColor = vec4(1.0, 1.0, 1.0, alpha * 0.50);\n"
+            "}\n";
+#else
+        const char* vs_src = "#version 330 core\n"
+            "const vec2 verts[4] = vec2[4](vec2(-1,-1), vec2(1,-1), vec2(-1,1), vec2(1,1));\n"
+            "out vec2 uv;\n"
+            "uniform vec2 scale;\n"
+            "void main() {\n"
+            "    uv = verts[gl_VertexID];\n"
+            "    gl_Position = vec4(uv * scale, 0.0, 1.0);\n"
+            "}\n";
+            
+        const char* fs_src = "#version 330 core\n"
+            "in vec2 uv;\n"
+            "out vec4 FragColor;\n"
+            "void main() {\n"
+            "    float dist = length(uv);\n"
+            "    float alpha = 1.0 - smoothstep(0.70, 1.0, dist);\n"
+            "    if (alpha <= 0.0) discard;\n"
+            "    FragColor = vec4(1.0, 1.0, 1.0, alpha * 0.50);\n"
+            "}\n";
+#endif
 
         glEnable(GL_DEPTH_TEST);
         std::random_device rd;

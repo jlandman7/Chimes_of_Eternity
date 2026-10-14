@@ -89,11 +89,10 @@ include(CPack)
 if(EMSCRIPTEN)
     set_target_properties(Chimes_of_Eternity PROPERTIES SUFFIX ".html")
     
-    # Compiler flags: Only include USE_GLFW=3 so emcc locates GLFW headers (no space after -s)
     target_compile_options(Chimes_of_Eternity PRIVATE "-sUSE_GLFW=3")
     
-    # Linker flags: Pass WebGL, GLFW, OpenGL ES3, and Asyncify flags (no space after -s)
     target_link_options(Chimes_of_Eternity PRIVATE 
+        "--shell-file" "${CMAKE_SOURCE_DIR}/shell_minimal.html"
         "-sUSE_WEBGL2=1" 
         "-sUSE_GLFW=3" 
         "-sFULL_ES3=1" 

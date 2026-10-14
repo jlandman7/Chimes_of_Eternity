@@ -2,7 +2,6 @@
 #include <iostream>
 #include <algorithm>
 
-// Header includes for OpenGL / WebGL
 #ifdef __EMSCRIPTEN__
 #include <GLES3/gl3.h>
 #else
@@ -12,7 +11,6 @@
 #endif
 
 #ifdef __EMSCRIPTEN__
-// GLSL ES 3.00 shaders for WebGL 2
 static const char* vertex_shader_src = R"(
 #version 300 es
 layout (location = 0) in vec3 aPos;
@@ -54,7 +52,7 @@ uniform Light u_lights[MAX_LIGHTS];
 
 void main() {
     vec3 N = normalize(Normal);
-    vec3 V = vec3(0.0, 1.0, 0.0); // Orthographic top-down view direction
+    vec3 V = vec3(0.0, 1.0, 0.0);
     
     vec3 totalSpecular = vec3(0.0);
 
@@ -68,16 +66,14 @@ void main() {
 
         float NdotL = max(dot(N, L), 0.0);
         float NdotV = max(dot(N, V), 0.0);
-        float NdotH = max(dot(N, H), 0.0);
+        // Clamp NdotH above 0.0001 to prevent WebGL pow(0.0, y) NaN bugs
+        float NdotH = max(dot(N, H), 0.0001);
 
-        // Distance attenuation
         float atten = 1.0 / (1.0 + 0.8 * dist + 0.4 * dist * dist);
 
-        // Water Fresnel (IOR = 1.333)
         float F0 = 0.02;
         float fresnel = F0 + (1.0 - F0) * pow(clamp(1.0 - NdotV, 0.0, 1.0), 5.0);
 
-        // Energy-conserving microfacet specular glint
         float shininess = 192.0;
         float specFactor = ((shininess + 8.0) / (8.0 * 3.14159265)) * pow(NdotH, shininess);
 
@@ -85,15 +81,13 @@ void main() {
         totalSpecular += spec;
     }
 
-    // Tone mapping and gamma correction
     vec3 finalColor = totalSpecular / (totalSpecular + vec3(1.0));
-    finalColor = pow(finalColor, vec3(1.0 / 2.2));
+    finalColor = pow(max(finalColor, vec3(0.0)), vec3(1.0 / 2.2));
 
     FragColor = vec4(finalColor, 1.0);
 }
 )";
 #else
-// Desktop GLSL 3.30 shaders for macOS / Linux / Windows
 static const char* vertex_shader_src = R"(
 #version 330 core
 layout (location = 0) in vec3 aPos;
@@ -133,7 +127,7 @@ uniform Light u_lights[MAX_LIGHTS];
 
 void main() {
     vec3 N = normalize(Normal);
-    vec3 V = vec3(0.0, 1.0, 0.0); // Orthographic top-down view direction
+    vec3 V = vec3(0.0, 1.0, 0.0);
     
     vec3 totalSpecular = vec3(0.0);
 
@@ -149,14 +143,11 @@ void main() {
         float NdotV = max(dot(N, V), 0.0);
         float NdotH = max(dot(N, H), 0.0);
 
-        // Distance attenuation
         float atten = 1.0 / (1.0 + 0.8 * dist + 0.4 * dist * dist);
 
-        // Water Fresnel (IOR = 1.333)
         float F0 = 0.02;
         float fresnel = F0 + (1.0 - F0) * pow(clamp(1.0 - NdotV, 0.0, 1.0), 5.0);
 
-        // Energy-conserving microfacet specular glint
         float shininess = 192.0;
         float specFactor = ((shininess + 8.0) / (8.0 * 3.14159265)) * pow(NdotH, shininess);
 
@@ -164,7 +155,6 @@ void main() {
         totalSpecular += spec;
     }
 
-    // Tone mapping and gamma correction
     vec3 finalColor = totalSpecular / (totalSpecular + vec3(1.0));
     finalColor = pow(finalColor, vec3(1.0 / 2.2));
 
@@ -183,6 +173,14 @@ GLuint Renderer::compile_shader(GLenum type, const char* source) {
     GLuint shader = glCreateShader(type);
     glShaderSource(shader, 1, &source, nullptr);
     glCompileShader(shader);
+
+    GLint success;
+    glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+    if (!success) {
+        char infoLog[512];
+        glGetShaderInfoLog(shader, 512, nullptr, infoLog);
+        std::cerr << "ERROR::SHADER::COMPILATION_FAILED\n" << infoLog << std::endl;
+    }
     return shader;
 }
 
@@ -191,6 +189,15 @@ GLuint Renderer::link_program(GLuint vs, GLuint fs) {
     glAttachShader(prog, vs);
     glAttachShader(prog, fs);
     glLinkProgram(prog);
+
+    GLint success;
+    glGetProgramiv(prog, GL_LINK_STATUS, &success);
+    if (!success) {
+        char infoLog[512];
+        glGetProgramInfoLog(prog, 512, nullptr, infoLog);
+        std::cerr << "ERROR::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+    }
+
     glDeleteShader(vs);
     glDeleteShader(fs);
     return prog;
