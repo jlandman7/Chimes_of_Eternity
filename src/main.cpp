@@ -111,8 +111,6 @@ int main(int argc, char* argv[]) {
 
         // --- CENTER DOT SETUP ---
         bool show_center_dot = false;
-// --- CENTER DOT SETUP ---
-        bool show_center_dot = false;
         
 #ifdef __EMSCRIPTEN__
         const char* vs_src = "#version 300 es\n"
