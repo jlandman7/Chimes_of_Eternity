@@ -111,6 +111,8 @@ int main(int argc, char* argv[]) {
 
         // --- CENTER DOT SETUP ---
         bool show_center_dot = false;
+// --- CENTER DOT SETUP ---
+        bool show_center_dot = false;
         
 #ifdef __EMSCRIPTEN__
         const char* vs_src = "#version 300 es\n"
@@ -152,6 +154,25 @@ int main(int argc, char* argv[]) {
             "    FragColor = vec4(1.0, 1.0, 1.0, alpha * 0.50);\n"
             "}\n";
 #endif
+
+        auto compile = [](GLenum type, const char* src) {
+            GLuint s = glCreateShader(type);
+            glShaderSource(s, 1, &src, nullptr);
+            glCompileShader(s);
+            return s;
+        };
+        
+        GLuint vs = compile(GL_VERTEX_SHADER, vs_src);
+        GLuint fs = compile(GL_FRAGMENT_SHADER, fs_src);
+        GLuint dot_shader = glCreateProgram();
+        glAttachShader(dot_shader, vs);
+        glAttachShader(dot_shader, fs);
+        glLinkProgram(dot_shader);
+        glDeleteShader(vs);
+        glDeleteShader(fs);
+
+        GLuint dot_vao = 0;
+        glGenVertexArrays(1, &dot_vao);
 
         glEnable(GL_DEPTH_TEST);
         std::random_device rd;
