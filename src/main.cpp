@@ -108,138 +108,141 @@ int main(int argc, char* argv[]) {
         bool show_center_dot = false;
         
 #ifdef __EMSCRIPTEN__
-        const char* vs_src = "#version 300 es\n"
-            "const vec2 verts[4] = vec2[4](vec2(-1,-1), vec2(1,-1), vec2(-1,1), vec2(1,1));\n"
-            "out vec2 uv;\n"
-            "uniform vec2 u_radius;\n" // u_radius = vec2(r / width, r / height)
-            "void main() {\n"
-            "    uv = verts[gl_VertexID];\n"
-            "    gl_Position = vec4(uv * u_radius, 0.0, 1.0);\n" // Centered at (0,0)
-            "}\n";
+        const char* vs_src = R"(#version 300 es
+const vec2 verts[4] = vec2[4](vec2(-1,-1), vec2(1,-1), vec2(-1,1), vec2(1,1));
+out vec2 uv;
+uniform vec2 u_radius;
+void main() {
+    uv = verts[gl_VertexID];
+    gl_Position = vec4(uv * u_radius, 0.0, 1.0);
+}
+)";
 
-        const char* fs_src = "#version 300 es\n"
-            "precision mediump float;\n"
-            "in vec2 uv;\n"
-            "out vec4 FragColor;\n"
-            "void main() {\n"
-            "    float dist = length(uv);\n"
-            "    float delta = fwidth(dist);\n"
-            "    float alpha = 1.0 - smoothstep(1.0 - delta * 2.5, 1.0, dist);\n"
-            "    if (alpha <= 0.0) discard;\n"
-            "    FragColor = vec4(1.0, 1.0, 1.0, alpha * 0.70);\n"
-            "}\n";
+        const char* fs_src = R"(#version 300 es
+precision mediump float;
+in vec2 uv;
+out vec4 FragColor;
+void main() {
+    float dist = length(uv);
+    float delta = fwidth(dist);
+    float alpha = 1.0 - smoothstep(1.0 - delta * 2.5, 1.0, dist);
+    if (alpha <= 0.0) discard;
+    FragColor = vec4(1.0, 1.0, 1.0, alpha * 0.70);
+}
+)";
 
-        // --- TITLE OVERLAY SHADER (Requirement 5.1) ---
-        const char* title_vs = "#version 300 es\n"
-            "const vec2 verts[4] = vec2[4](vec2(-1,-1), vec2(1,-1), vec2(-1,1), vec2(1,1));\n"
-            "out vec2 uv;\n"
-            "uniform float u_aspect;\n"
-            "void main() {\n"
-            "    uv = verts[gl_VertexID];\n"
-            "    vec2 st = uv;\n"
-            "    st.x *= u_aspect;\n"
-            "    gl_Position = vec4(st * 0.45, 0.0, 1.0);\n"
-            "}\n";
+        const char* title_vs = R"(#version 300 es
+const vec2 verts[4] = vec2[4](vec2(-1,-1), vec2(1,-1), vec2(-1,1), vec2(1,1));
+out vec2 uv;
+uniform float u_aspect;
+void main() {
+    uv = verts[gl_VertexID];
+    vec2 st = uv;
+    st.x *= u_aspect;
+    gl_Position = vec4(st * 0.45, 0.0, 1.0);
+}
+)";
 
-        const char* title_fs = "#version 300 es\n"
-            "precision mediump float;\n"
-            "in vec2 uv;\n"
-            "out vec4 FragColor;\n"
-            "uniform float u_alpha;\n"
+        const char* title_fs = R"(#version 300 es
+precision mediump float;
+in vec2 uv;
+out vec4 FragColor;
+uniform float u_alpha;
 
-            // Helper distance segment for vector lines
-            float dfSeg(vec2 p, vec2 a, vec2 b) {
-                vec2 pa = p - a, ba = b - a;
-                float h = clamp(dot(pa, ba) / dot(ba, ba), 0.0, 1.0);
-                return length(pa - ba * h);
-            }
+float dfSeg(vec2 p, vec2 a, vec2 b) {
+    vec2 pa = p - a, ba = b - a;
+    float h = clamp(dot(pa, ba) / dot(ba, ba), 0.0, 1.0);
+    return length(pa - ba * h);
+}
 
-            void main() {
-                // Map UV coordinates across title string space
-                vec2 p = uv * vec2(8.0, 1.5); 
-                float d = 100.0;
+void main() {
+    vec2 p = uv * vec2(8.0, 1.5); 
+    float d = 100.0;
 
-                // Render crisp vector letter silhouettes (C, H, I, M, E, S)
-                d = min(d, dfSeg(p, vec2(-6.5, 0.5), vec2(-7.2, 0.5)));
-                d = min(d, dfSeg(p, vec2(-7.2, 0.5), vec2(-7.2, -0.5)));
-                d = min(d, dfSeg(p, vec2(-7.2, -0.5), vec2(-6.5, -0.5))); // C
-                
-                d = min(d, dfSeg(p, vec2(-6.0, 0.5), vec2(-6.0, -0.5)));
-                d = min(d, dfSeg(p, vec2(-5.3, 0.5), vec2(-5.3, -0.5)));
-                d = min(d, dfSeg(p, vec2(-6.0, 0.0), vec2(-5.3, 0.0))); // H
+    d = min(d, dfSeg(p, vec2(-6.5, 0.5), vec2(-7.2, 0.5)));
+    d = min(d, dfSeg(p, vec2(-7.2, 0.5), vec2(-7.2, -0.5)));
+    d = min(d, dfSeg(p, vec2(-7.2, -0.5), vec2(-6.5, -0.5)));
 
-                d = min(d, dfSeg(p, vec2(-4.6, 0.5), vec2(-4.6, -0.5))); // I
+    d = min(d, dfSeg(p, vec2(-6.0, 0.5), vec2(-6.0, -0.5)));
+    d = min(d, dfSeg(p, vec2(-5.3, 0.5), vec2(-5.3, -0.5)));
+    d = min(d, dfSeg(p, vec2(-6.0, 0.0), vec2(-5.3, 0.0)));
 
-                d = min(d, dfSeg(p, vec2(-4.0, -0.5), vec2(-4.0, 0.5)));
-                d = min(d, dfSeg(p, vec2(-4.0, 0.5), vec2(-3.5, 0.0)));
-                d = min(d, dfSeg(p, vec2(-3.5, 0.0), vec2(-3.0, 0.5)));
-                d = min(d, dfSeg(p, vec2(-3.0, 0.5), vec2(-3.0, -0.5))); // M
+    d = min(d, dfSeg(p, vec2(-4.6, 0.5), vec2(-4.6, -0.5)));
 
-                d = min(d, dfSeg(p, vec2(-2.4, 0.5), vec2(-2.4, -0.5)));
-                d = min(d, dfSeg(p, vec2(-2.4, 0.5), vec2(-1.8, 0.5)));
-                d = min(d, dfSeg(p, vec2(-2.4, 0.0), vec2(-1.9, 0.0)));
-                d = min(d, dfSeg(p, vec2(-2.4, -0.5), vec2(-1.8, -0.5))); // E
+    d = min(d, dfSeg(p, vec2(-4.0, -0.5), vec2(-4.0, 0.5)));
+    d = min(d, dfSeg(p, vec2(-4.0, 0.5), vec2(-3.5, 0.0)));
+    d = min(d, dfSeg(p, vec2(-3.5, 0.0), vec2(-3.0, 0.5)));
+    d = min(d, dfSeg(p, vec2(-3.0, 0.5), vec2(-3.0, -0.5)));
 
-                d = min(d, dfSeg(p, vec2(-1.2, 0.5), vec2(-0.6, 0.5)));
-                d = min(d, dfSeg(p, vec2(-1.2, 0.5), vec2(-1.2, 0.0)));
-                d = min(d, dfSeg(p, vec2(-1.2, 0.0), vec2(-0.6, 0.0)));
-                d = min(d, dfSeg(p, vec2(-0.6, 0.0), vec2(-0.6, -0.5)));
-                d = min(d, dfSeg(p, vec2(-0.6, -0.5), vec2(-1.2, -0.5))); // S
+    d = min(d, dfSeg(p, vec2(-2.4, 0.5), vec2(-2.4, -0.5)));
+    d = min(d, dfSeg(p, vec2(-2.4, 0.5), vec2(-1.8, 0.5)));
+    d = min(d, dfSeg(p, vec2(-2.4, 0.0), vec2(-1.9, 0.0)));
+    d = min(d, dfSeg(p, vec2(-2.4, -0.5), vec2(-1.8, -0.5)));
 
-                float stroke = 1.0 - smoothstep(0.06, 0.12, d);
-                float glow = 1.0 - smoothstep(0.05, 0.45, d);
+    d = min(d, dfSeg(p, vec2(-1.2, 0.5), vec2(-0.6, 0.5)));
+    d = min(d, dfSeg(p, vec2(-1.2, 0.5), vec2(-1.2, 0.0)));
+    d = min(d, dfSeg(p, vec2(-1.2, 0.0), vec2(-0.6, 0.0)));
+    d = min(d, dfSeg(p, vec2(-0.6, 0.0), vec2(-0.6, -0.5)));
+    d = min(d, dfSeg(p, vec2(-0.6, -0.5), vec2(-1.2, -0.5)));
 
-                vec3 cyanColor = mix(vec3(0.2, 0.8, 1.0), vec3(0.6, 0.3, 1.0), (uv.x + 1.0) * 0.5);
-                vec3 finalRGB = mix(cyanColor * glow * 0.6, vec3(1.0), stroke);
-                float alpha = max(stroke, glow * 0.5) * u_alpha;
+    float stroke = 1.0 - smoothstep(0.06, 0.12, d);
+    float glow = 1.0 - smoothstep(0.05, 0.45, d);
 
-                if (alpha <= 0.001) discard;
-                FragColor = vec4(finalRGB, alpha);
-            }
+    vec3 cyanColor = mix(vec3(0.2, 0.8, 1.0), vec3(0.6, 0.3, 1.0), (uv.x + 1.0) * 0.5);
+    vec3 finalRGB = mix(cyanColor * glow * 0.6, vec3(1.0), stroke);
+    float alpha = max(stroke, glow * 0.5) * u_alpha;
 
+    if (alpha <= 0.001) discard;
+    FragColor = vec4(finalRGB, alpha);
+}
+)";
 #else
-        const char* vs_src = "#version 330 core\n"
-            "const vec2 verts[4] = vec2[4](vec2(-1,-1), vec2(1,-1), vec2(-1,1), vec2(1,1));\n"
-            "out vec2 uv;\n"
-            "uniform vec2 scale;\n"
-            "void main() {\n"
-            "    uv = verts[gl_VertexID];\n"
-            "    gl_Position = vec4(uv * scale, 0.0, 1.0);\n"
-            "}\n";
+        const char* vs_src = R"(#version 330 core
+const vec2 verts[4] = vec2[4](vec2(-1,-1), vec2(1,-1), vec2(-1,1), vec2(1,1));
+out vec2 uv;
+uniform vec2 scale;
+void main() {
+    uv = verts[gl_VertexID];
+    gl_Position = vec4(uv * scale, 0.0, 1.0);
+}
+)";
             
-        const char* fs_src = "#version 330 core\n"
-            "in vec2 uv;\n"
-            "out vec4 FragColor;\n"
-            "void main() {\n"
-            "    float dist = length(uv);\n"
-            "    float delta = fwidth(dist);\n"
-            "    float alpha = 1.0 - smoothstep(1.0 - delta * 2.0, 1.0, dist);\n"
-            "    if (alpha <= 0.0) discard;\n"
-            "    FragColor = vec4(1.0, 1.0, 1.0, alpha * 0.60);\n"
-            "}\n";
+        const char* fs_src = R"(#version 330 core
+in vec2 uv;
+out vec4 FragColor;
+void main() {
+    float dist = length(uv);
+    float delta = fwidth(dist);
+    float alpha = 1.0 - smoothstep(1.0 - delta * 2.0, 1.0, dist);
+    if (alpha <= 0.0) discard;
+    FragColor = vec4(1.0, 1.0, 1.0, alpha * 0.60);
+}
+)";
 
-        const char* title_vs = "#version 330 core\n"
-            "const vec2 verts[4] = vec2[4](vec2(-1,-1), vec2(1,-1), vec2(-1,1), vec2(1,1));\n"
-            "out vec2 uv;\n"
-            "void main() {\n"
-            "    uv = verts[gl_VertexID];\n"
-            "    gl_Position = vec4(uv, 0.0, 1.0);\n"
-            "}\n";
+        const char* title_vs = R"(#version 330 core
+const vec2 verts[4] = vec2[4](vec2(-1,-1), vec2(1,-1), vec2(-1,1), vec2(1,1));
+out vec2 uv;
+void main() {
+    uv = verts[gl_VertexID];
+    gl_Position = vec4(uv, 0.0, 1.0);
+}
+)";
 
-        const char* title_fs = "#version 330 core\n"
-            "in vec2 uv;\n"
-            "out vec4 FragColor;\n"
-            "uniform float u_alpha;\n"
-            "void main() {\n"
-            "    float distY = abs(uv.y);\n"
-            "    float distX = abs(uv.x);\n"
-            "    float band = smoothstep(0.30, 0.0, distY) * smoothstep(0.85, 0.2, distX);\n"
-            "    vec3 coolColor = mix(vec3(0.0, 0.85, 1.0), vec3(0.5, 0.95, 0.7), uv.x * 0.5 + 0.5);\n"
-            "    float core = smoothstep(0.10, 0.0, distY) * smoothstep(0.70, 0.0, distX);\n"
-            "    float a = (band * 0.35 + core * 0.65) * u_alpha;\n"
-            "    if (a <= 0.001) discard;\n"
-            "    FragColor = vec4(coolColor, a);\n"
-            "}\n";
+        const char* title_fs = R"(#version 330 core
+in vec2 uv;
+out vec4 FragColor;
+uniform float u_alpha;
+void main() {
+    float distY = abs(uv.y);
+    float distX = abs(uv.x);
+    float band = smoothstep(0.30, 0.0, distY) * smoothstep(0.85, 0.2, distX);
+    vec3 coolColor = mix(vec3(0.0, 0.85, 1.0), vec3(0.5, 0.95, 0.7), uv.x * 0.5 + 0.5);
+    float core = smoothstep(0.10, 0.0, distY) * smoothstep(0.70, 0.0, distX);
+    float a = (band * 0.35 + core * 0.65) * u_alpha;
+    if (a <= 0.001) discard;
+    FragColor = vec4(coolColor, a);
+}
+)";
 #endif
 
         auto compile = [](GLenum type, const char* src) {
@@ -292,7 +295,6 @@ int main(int argc, char* argv[]) {
         std::uniform_real_distribution<float> pos_dist(-0.45f, 0.45f);
         std::uniform_real_distribution<float> height_dist(1.1f, 1.7f);
 
-        // --- AUDIO DISTRIBUTIONS ---
         std::vector<float> scale = { 220.0f, 261.63f, 293.66f, 329.63f, 392.00f, 
                                      440.0f, 523.25f, 587.33f, 659.25f, 783.99f, 880.0f };
         std::uniform_int_distribution<int> pitch_dist(0, scale.size() - 1);
@@ -302,14 +304,12 @@ int main(int argc, char* argv[]) {
         std::uniform_real_distribution<float> harmonic_ratio_dist(2.0f, 5.0f);
         std::uniform_real_distribution<float> harmonic_base_amp_dist(0.02f, 0.08f);
 
-        // --- VISUAL DISTRIBUTIONS ---
         std::uniform_real_distribution<float> ripple_size_dist(0.08f, 0.3f);
         std::uniform_real_distribution<float> ripple_mag_dist(0.005f, 0.02f);
 
         constexpr int NUM_TIMERS = 8;
         ProcessTimer timers[NUM_TIMERS];
 
-        // --- REQUIREMENT 5.2: Guaranteed drop in first 8 seconds ---
         std::uniform_real_distribution<float> first_drop_dist(1.5f, 4.0f);
         timers[0].time_remaining = first_drop_dist(gen);
 
@@ -428,7 +428,6 @@ int main(int argc, char* argv[]) {
                     
                     lights.push_back(light);
 
-                    // Resample using regular Poisson process
                     timers[i].sample_next(gen, arrival_dist);
                 }
             }
@@ -457,7 +456,6 @@ int main(int argc, char* argv[]) {
             glm::vec3 cam_pos(0.0f, 2.0f, 0.0f);
             glm::mat4 view = glm::lookAt(cam_pos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f));
 
-            // --- REQUIREMENT 4: Physical scene view locked in world units ---
             const float SCENE_HALF_SIZE = 1.0f;
             glm::mat4 proj = glm::ortho(-SCENE_HALF_SIZE * aspect, 
                                          SCENE_HALF_SIZE * aspect, 
@@ -467,7 +465,6 @@ int main(int argc, char* argv[]) {
 
             renderer.render(mesh, view, proj, cam_pos, active_light_data);
 
-            // --- REQUIREMENT 5.1: Fade title screen over 8 seconds ---
             if (total_time_elapsed < 8.0f) {
                 float title_alpha = std::clamp((8.0f - total_time_elapsed) / 8.0f, 0.0f, 1.0f);
                 
@@ -477,6 +474,7 @@ int main(int argc, char* argv[]) {
                 
                 glUseProgram(title_shader);
                 glUniform1f(glGetUniformLocation(title_shader, "u_alpha"), title_alpha);
+                glUniform1f(glGetUniformLocation(title_shader, "u_aspect"), aspect);
                 
                 glBindVertexArray(title_vao);
                 glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
@@ -486,7 +484,6 @@ int main(int argc, char* argv[]) {
                 glEnable(GL_DEPTH_TEST);
             }
 
-            // --- REQUIREMENT 3: Antialiased Center Dot ---
             if (show_center_dot) {
                 glDisable(GL_DEPTH_TEST);
                 glEnable(GL_BLEND);
@@ -494,7 +491,6 @@ int main(int argc, char* argv[]) {
 
                 glUseProgram(dot_shader);
                 
-                // Pixel radius (e.g. 5 pixels wide) divided by framebuffer dimensions
                 float r_px = 5.0f;
                 glUniform2f(glGetUniformLocation(dot_shader, "u_radius"), 
                             r_px / (float)display_w, 
