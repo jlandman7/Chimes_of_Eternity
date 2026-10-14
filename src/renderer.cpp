@@ -52,14 +52,17 @@ uniform Light u_lights[MAX_LIGHTS];
 
 void main() {
     vec3 N = normalize(Normal);
-    vec3 V = vec3(0.0, 1.0, 0.0);
+    vec3 V = vec3(0.0, 1.0, 0.0); // Top-down camera view
     
-    vec3 totalLight = vec3(0.0);
+    // Slight ambient so the water mesh is visible even before drops hit
+    vec3 totalLight = vec3(0.015, 0.025, 0.045); 
 
     for (int i = 0; i < u_numLights; ++i) {
         if (u_lights[i].intensity <= 0.0001) continue;
 
-        vec3 lightVec = u_lights[i].position - WorldPos;
+        // Position light closer to water surface (y = 0.25)
+        vec3 lightPos = vec3(u_lights[i].position.x, 0.25, u_lights[i].position.z);
+        vec3 lightVec = lightPos - WorldPos;
         float dist = length(lightVec);
         vec3 L = lightVec / max(dist, 0.0001);
         vec3 H = normalize(L + V);
@@ -68,29 +71,25 @@ void main() {
         float NdotV = max(dot(N, V), 0.0);
         float NdotH = max(dot(N, H), 0.0001);
 
-        float atten = 1.0 / (1.0 + 0.8 * dist + 0.4 * dist * dist);
+        float atten = 1.0 / (1.0 + 1.2 * dist + 0.8 * dist * dist);
 
-        // Water Fresnel (IOR = 1.333)
-        float F0 = 0.02;
+        // Water Fresnel
+        float F0 = 0.04;
         float fresnel = F0 + (1.0 - F0) * pow(clamp(1.0 - NdotV, 0.0, 1.0), 5.0);
 
-        // Diffuse light (illuminates water surface ripples)
-        vec3 diffuse = u_lights[i].color * u_lights[i].intensity * NdotL * atten * 2.5;
+        // Strong diffuse splash illumination on ripples
+        vec3 diffuse = u_lights[i].color * u_lights[i].intensity * NdotL * atten * 12.0;
 
-        // Specular glint
-        float shininess = 64.0;
+        // Specular highlight glint
+        float shininess = 32.0;
         float specFactor = pow(NdotH, shininess);
-        vec3 spec = u_lights[i].color * u_lights[i].intensity * specFactor * fresnel * atten * 4.0;
+        vec3 spec = u_lights[i].color * u_lights[i].intensity * specFactor * fresnel * atten * 8.0;
 
         totalLight += diffuse + spec;
     }
 
-    // Dark abyss ambient base
-    vec3 ambient = vec3(0.005, 0.01, 0.02);
-    vec3 finalColor = ambient + totalLight;
-
     // Tone mapping & gamma correction
-    finalColor = finalColor / (finalColor + vec3(1.0));
+    vec3 finalColor = totalLight / (totalLight + vec3(1.0));
     finalColor = pow(max(finalColor, vec3(0.0)), vec3(1.0 / 2.2));
 
     FragColor = vec4(finalColor, 1.0);

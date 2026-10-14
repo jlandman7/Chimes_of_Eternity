@@ -12,19 +12,20 @@
 <body>
   <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
   <script type="text/javascript">
-    function resizeCanvas() {
+    function fixCanvas() {
       var canvas = document.getElementById('canvas');
       if (canvas) {
-        canvas.width = window.innerWidth * window.devicePixelRatio;
-        canvas.height = window.innerHeight * window.devicePixelRatio;
+        canvas.width = window.innerWidth * (window.devicePixelRatio || 1);
+        canvas.height = window.innerHeight * (window.devicePixelRatio || 1);
       }
     }
-    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('resize', fixCanvas);
     var Module = {
+      preRun: [fixCanvas],
       canvas: (function() {
         var canvas = document.getElementById('canvas');
-        canvas.width = window.innerWidth * window.devicePixelRatio;
-        canvas.height = window.innerHeight * window.devicePixelRatio;
+        canvas.width = window.innerWidth * (window.devicePixelRatio || 1);
+        canvas.height = window.innerHeight * (window.devicePixelRatio || 1);
         return canvas;
       })()
     };

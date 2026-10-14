@@ -111,12 +111,12 @@ int main(int argc, char* argv[]) {
         const char* vs_src = "#version 300 es\n"
             "const vec2 verts[4] = vec2[4](vec2(-1,-1), vec2(1,-1), vec2(-1,1), vec2(1,1));\n"
             "out vec2 uv;\n"
-            "uniform vec2 scale;\n"
+            "uniform vec2 u_radius;\n" // u_radius = vec2(r / width, r / height)
             "void main() {\n"
             "    uv = verts[gl_VertexID];\n"
-            "    gl_Position = vec4(uv * scale, 0.0, 1.0);\n"
+            "    gl_Position = vec4(uv * u_radius, 0.0, 1.0);\n" // Centered at (0,0)
             "}\n";
-            
+
         const char* fs_src = "#version 300 es\n"
             "precision mediump float;\n"
             "in vec2 uv;\n"
@@ -124,18 +124,21 @@ int main(int argc, char* argv[]) {
             "void main() {\n"
             "    float dist = length(uv);\n"
             "    float delta = fwidth(dist);\n"
-            "    float alpha = 1.0 - smoothstep(1.0 - delta * 2.0, 1.0, dist);\n"
+            "    float alpha = 1.0 - smoothstep(1.0 - delta * 2.5, 1.0, dist);\n"
             "    if (alpha <= 0.0) discard;\n"
-            "    FragColor = vec4(1.0, 1.0, 1.0, alpha * 0.60);\n"
+            "    FragColor = vec4(1.0, 1.0, 1.0, alpha * 0.70);\n"
             "}\n";
 
         // --- TITLE OVERLAY SHADER (Requirement 5.1) ---
         const char* title_vs = "#version 300 es\n"
             "const vec2 verts[4] = vec2[4](vec2(-1,-1), vec2(1,-1), vec2(-1,1), vec2(1,1));\n"
             "out vec2 uv;\n"
+            "uniform float u_aspect;\n"
             "void main() {\n"
             "    uv = verts[gl_VertexID];\n"
-            "    gl_Position = vec4(uv, 0.0, 1.0);\n"
+            "    vec2 st = uv;\n"
+            "    st.x *= u_aspect;\n"
+            "    gl_Position = vec4(st * 0.45, 0.0, 1.0);\n"
             "}\n";
 
         const char* title_fs = "#version 300 es\n"
@@ -143,16 +146,57 @@ int main(int argc, char* argv[]) {
             "in vec2 uv;\n"
             "out vec4 FragColor;\n"
             "uniform float u_alpha;\n"
-            "void main() {\n"
-            "    float distY = abs(uv.y);\n"
-            "    float distX = abs(uv.x);\n"
-            "    float band = smoothstep(0.30, 0.0, distY) * smoothstep(0.85, 0.2, distX);\n"
-            "    vec3 coolColor = mix(vec3(0.0, 0.85, 1.0), vec3(0.5, 0.95, 0.7), uv.x * 0.5 + 0.5);\n"
-            "    float core = smoothstep(0.10, 0.0, distY) * smoothstep(0.70, 0.0, distX);\n"
-            "    float a = (band * 0.35 + core * 0.65) * u_alpha;\n"
-            "    if (a <= 0.001) discard;\n"
-            "    FragColor = vec4(coolColor, a);\n"
-            "}\n";
+
+            // Helper distance segment for vector lines
+            float dfSeg(vec2 p, vec2 a, vec2 b) {
+                vec2 pa = p - a, ba = b - a;
+                float h = clamp(dot(pa, ba) / dot(ba, ba), 0.0, 1.0);
+                return length(pa - ba * h);
+            }
+
+            void main() {
+                // Map UV coordinates across title string space
+                vec2 p = uv * vec2(8.0, 1.5); 
+                float d = 100.0;
+
+                // Render crisp vector letter silhouettes (C, H, I, M, E, S)
+                d = min(d, dfSeg(p, vec2(-6.5, 0.5), vec2(-7.2, 0.5)));
+                d = min(d, dfSeg(p, vec2(-7.2, 0.5), vec2(-7.2, -0.5)));
+                d = min(d, dfSeg(p, vec2(-7.2, -0.5), vec2(-6.5, -0.5))); // C
+                
+                d = min(d, dfSeg(p, vec2(-6.0, 0.5), vec2(-6.0, -0.5)));
+                d = min(d, dfSeg(p, vec2(-5.3, 0.5), vec2(-5.3, -0.5)));
+                d = min(d, dfSeg(p, vec2(-6.0, 0.0), vec2(-5.3, 0.0))); // H
+
+                d = min(d, dfSeg(p, vec2(-4.6, 0.5), vec2(-4.6, -0.5))); // I
+
+                d = min(d, dfSeg(p, vec2(-4.0, -0.5), vec2(-4.0, 0.5)));
+                d = min(d, dfSeg(p, vec2(-4.0, 0.5), vec2(-3.5, 0.0)));
+                d = min(d, dfSeg(p, vec2(-3.5, 0.0), vec2(-3.0, 0.5)));
+                d = min(d, dfSeg(p, vec2(-3.0, 0.5), vec2(-3.0, -0.5))); // M
+
+                d = min(d, dfSeg(p, vec2(-2.4, 0.5), vec2(-2.4, -0.5)));
+                d = min(d, dfSeg(p, vec2(-2.4, 0.5), vec2(-1.8, 0.5)));
+                d = min(d, dfSeg(p, vec2(-2.4, 0.0), vec2(-1.9, 0.0)));
+                d = min(d, dfSeg(p, vec2(-2.4, -0.5), vec2(-1.8, -0.5))); // E
+
+                d = min(d, dfSeg(p, vec2(-1.2, 0.5), vec2(-0.6, 0.5)));
+                d = min(d, dfSeg(p, vec2(-1.2, 0.5), vec2(-1.2, 0.0)));
+                d = min(d, dfSeg(p, vec2(-1.2, 0.0), vec2(-0.6, 0.0)));
+                d = min(d, dfSeg(p, vec2(-0.6, 0.0), vec2(-0.6, -0.5)));
+                d = min(d, dfSeg(p, vec2(-0.6, -0.5), vec2(-1.2, -0.5))); // S
+
+                float stroke = 1.0 - smoothstep(0.06, 0.12, d);
+                float glow = 1.0 - smoothstep(0.05, 0.45, d);
+
+                vec3 cyanColor = mix(vec3(0.2, 0.8, 1.0), vec3(0.6, 0.3, 1.0), (uv.x + 1.0) * 0.5);
+                vec3 finalRGB = mix(cyanColor * glow * 0.6, vec3(1.0), stroke);
+                float alpha = max(stroke, glow * 0.5) * u_alpha;
+
+                if (alpha <= 0.001) discard;
+                FragColor = vec4(finalRGB, alpha);
+            }
+
 #else
         const char* vs_src = "#version 330 core\n"
             "const vec2 verts[4] = vec2[4](vec2(-1,-1), vec2(1,-1), vec2(-1,1), vec2(1,1));\n"
@@ -447,17 +491,19 @@ int main(int argc, char* argv[]) {
                 glDisable(GL_DEPTH_TEST);
                 glEnable(GL_BLEND);
                 glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-                
+
                 glUseProgram(dot_shader);
-                float dot_radius_px = 6.0f;
-                glUniform2f(glGetUniformLocation(dot_shader, "scale"), 
-                            (dot_radius_px * 2.0f) / (float)display_w, 
-                            (dot_radius_px * 2.0f) / (float)display_h);
+                
+                // Pixel radius (e.g. 5 pixels wide) divided by framebuffer dimensions
+                float r_px = 5.0f;
+                glUniform2f(glGetUniformLocation(dot_shader, "u_radius"), 
+                            r_px / (float)display_w, 
+                            r_px / (float)display_h);
 
                 glBindVertexArray(dot_vao);
                 glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
                 glBindVertexArray(0);
-                
+
                 glDisable(GL_BLEND);
                 glEnable(GL_DEPTH_TEST);
             }
