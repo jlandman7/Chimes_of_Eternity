@@ -27,16 +27,12 @@ struct AnimatedLight {
     glm::vec3 position;
     glm::vec3 color;
     float age = 0.0f;
-    float decay = 1.0f; // Linked to audio tail        
+    float decay = 1.0f;        
     float peak_intensity = 0.7f;  
 
     float get_current_intensity() const {
-        // Calculate the exact same curve the audio uses
         float raw_envelope = std::exp(-decay * age);
-        
-        // Remap it so it hits absolute 0.0 right as the audio hits 0.001
         float light_intensity = std::max(0.0f, (raw_envelope - 0.001f) / 0.999f);
-        
         return light_intensity * peak_intensity;
     }
     
@@ -80,9 +76,8 @@ static glm::vec3 generate_vibrant_color(std::mt19937& gen) {
 
 int main(int argc, char* argv[]) {
     try {
-
         #ifndef __EMSCRIPTEN__
-            glfwWindowHint(GLFW_DECORATED, GLFW_FALSE); // Removes macOS title bar/border seam
+            glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
         #endif
 
         Window window(1920, 1080, "Water Surface in the Abyss", true);
@@ -109,7 +104,7 @@ int main(int argc, char* argv[]) {
             std::cerr << "Warning: Failed to initialize DSP audio engine." << std::endl;
         }
 
-        // --- CENTER DOT SETUP ---
+        // --- CENTER DOT SETUP (Antialiased) ---
         bool show_center_dot = false;
         
 #ifdef __EMSCRIPTEN__
@@ -128,9 +123,35 @@ int main(int argc, char* argv[]) {
             "out vec4 FragColor;\n"
             "void main() {\n"
             "    float dist = length(uv);\n"
-            "    float alpha = 1.0 - smoothstep(0.70, 1.0, dist);\n"
+            "    float delta = fwidth(dist);\n"
+            "    float alpha = 1.0 - smoothstep(1.0 - delta * 2.0, 1.0, dist);\n"
             "    if (alpha <= 0.0) discard;\n"
-            "    FragColor = vec4(1.0, 1.0, 1.0, alpha * 0.50);\n"
+            "    FragColor = vec4(1.0, 1.0, 1.0, alpha * 0.60);\n"
+            "}\n";
+
+        // --- TITLE OVERLAY SHADER (Requirement 5.1) ---
+        const char* title_vs = "#version 300 es\n"
+            "const vec2 verts[4] = vec2[4](vec2(-1,-1), vec2(1,-1), vec2(-1,1), vec2(1,1));\n"
+            "out vec2 uv;\n"
+            "void main() {\n"
+            "    uv = verts[gl_VertexID];\n"
+            "    gl_Position = vec4(uv, 0.0, 1.0);\n"
+            "}\n";
+
+        const char* title_fs = "#version 300 es\n"
+            "precision mediump float;\n"
+            "in vec2 uv;\n"
+            "out vec4 FragColor;\n"
+            "uniform float u_alpha;\n"
+            "void main() {\n"
+            "    float distY = abs(uv.y);\n"
+            "    float distX = abs(uv.x);\n"
+            "    float band = smoothstep(0.30, 0.0, distY) * smoothstep(0.85, 0.2, distX);\n"
+            "    vec3 coolColor = mix(vec3(0.0, 0.85, 1.0), vec3(0.5, 0.95, 0.7), uv.x * 0.5 + 0.5);\n"
+            "    float core = smoothstep(0.10, 0.0, distY) * smoothstep(0.70, 0.0, distX);\n"
+            "    float a = (band * 0.35 + core * 0.65) * u_alpha;\n"
+            "    if (a <= 0.001) discard;\n"
+            "    FragColor = vec4(coolColor, a);\n"
             "}\n";
 #else
         const char* vs_src = "#version 330 core\n"
@@ -147,9 +168,33 @@ int main(int argc, char* argv[]) {
             "out vec4 FragColor;\n"
             "void main() {\n"
             "    float dist = length(uv);\n"
-            "    float alpha = 1.0 - smoothstep(0.70, 1.0, dist);\n"
+            "    float delta = fwidth(dist);\n"
+            "    float alpha = 1.0 - smoothstep(1.0 - delta * 2.0, 1.0, dist);\n"
             "    if (alpha <= 0.0) discard;\n"
-            "    FragColor = vec4(1.0, 1.0, 1.0, alpha * 0.50);\n"
+            "    FragColor = vec4(1.0, 1.0, 1.0, alpha * 0.60);\n"
+            "}\n";
+
+        const char* title_vs = "#version 330 core\n"
+            "const vec2 verts[4] = vec2[4](vec2(-1,-1), vec2(1,-1), vec2(-1,1), vec2(1,1));\n"
+            "out vec2 uv;\n"
+            "void main() {\n"
+            "    uv = verts[gl_VertexID];\n"
+            "    gl_Position = vec4(uv, 0.0, 1.0);\n"
+            "}\n";
+
+        const char* title_fs = "#version 330 core\n"
+            "in vec2 uv;\n"
+            "out vec4 FragColor;\n"
+            "uniform float u_alpha;\n"
+            "void main() {\n"
+            "    float distY = abs(uv.y);\n"
+            "    float distX = abs(uv.x);\n"
+            "    float band = smoothstep(0.30, 0.0, distY) * smoothstep(0.85, 0.2, distX);\n"
+            "    vec3 coolColor = mix(vec3(0.0, 0.85, 1.0), vec3(0.5, 0.95, 0.7), uv.x * 0.5 + 0.5);\n"
+            "    float core = smoothstep(0.10, 0.0, distY) * smoothstep(0.70, 0.0, distX);\n"
+            "    float a = (band * 0.35 + core * 0.65) * u_alpha;\n"
+            "    if (a <= 0.001) discard;\n"
+            "    FragColor = vec4(coolColor, a);\n"
             "}\n";
 #endif
 
@@ -171,6 +216,28 @@ int main(int argc, char* argv[]) {
 
         GLuint dot_vao = 0;
         glGenVertexArrays(1, &dot_vao);
+
+        GLuint tvs = compile(GL_VERTEX_SHADER, title_vs);
+        GLuint tfs = compile(GL_FRAGMENT_SHADER, title_fs);
+        GLuint title_shader = glCreateProgram();
+        glAttachShader(title_shader, tvs);
+        glAttachShader(title_shader, tfs);
+        glLinkProgram(title_shader);
+        glDeleteShader(tvs);
+        glDeleteShader(tfs);
+
+        GLuint title_vao = 0;
+        glGenVertexArrays(1, &title_vao);
+
+        #ifndef __EMSCRIPTEN__
+            IOPMAssertionID sleep_assertion_id;
+            IOPMAssertionCreateWithName(
+                kIOPMAssertionTypeNoDisplaySleep, 
+                kIOPMAssertionLevelOn, 
+                CFSTR("Water Abyss Simulation Running"), 
+                &sleep_assertion_id
+            );
+        #endif
 
         glEnable(GL_DEPTH_TEST);
         std::random_device rd;
@@ -197,7 +264,12 @@ int main(int argc, char* argv[]) {
 
         constexpr int NUM_TIMERS = 8;
         ProcessTimer timers[NUM_TIMERS];
-        for (int i = 0; i < NUM_TIMERS; ++i) {
+
+        // --- REQUIREMENT 5.2: Guaranteed drop in first 8 seconds ---
+        std::uniform_real_distribution<float> first_drop_dist(1.5f, 4.0f);
+        timers[0].time_remaining = first_drop_dist(gen);
+
+        for (int i = 1; i < NUM_TIMERS; ++i) {
             timers[i].sample_next(gen, arrival_dist);
         }
 
@@ -214,7 +286,6 @@ int main(int argc, char* argv[]) {
                 glfwSetWindowShouldClose(window.get_native_window(), true);
             }
 
-            // Toggle center dot via 'D' key press (edge detected)
             bool d_key_is_pressed = (glfwGetKey(window.get_native_window(), GLFW_KEY_D) == GLFW_PRESS);
             if (d_key_is_pressed && !d_key_was_pressed) {
                 show_center_dot = !show_center_dot;
@@ -248,32 +319,25 @@ int main(int argc, char* argv[]) {
                     float stage_fraction = std::fmod(cycle_time, STAGE_DUR) / STAGE_DUR;
 
                     int current_root = circle_roots[current_stage];
-
-                    // The peak of the distribution slides from 0.0 to 1.5 over the stage
                     float shift = stage_fraction * 1.5f; 
                     
                     std::vector<double> weights(5, 0.0);
                     for (int j = 0; j < 5; ++j) {
                         float diff = j - shift;
                         if (diff >= 0.0f) {
-                            // Exponential decay to the right
                             weights[j] = std::exp(-1.1f * diff); 
                         } else {
-                            // Sharper falloff to the left so the root fades out as we shift
                             weights[j] = std::exp(-2.5f * std::abs(diff));
                         }
                         
-                        // Clamp the tail: anything falling below ~0.15 weight becomes 0% chance.
                         weights[j] -= 0.15f; 
                         if (weights[j] < 0.0f) weights[j] = 0.0f;
                     }
 
-                    // discrete_distribution normalizes the weights automatically
                     std::discrete_distribution<int> index_dist(weights.begin(), weights.end());
                     int chosen_idx = index_dist(gen);
                     int note_class = (current_root + pentatonic_offsets[chosen_idx]) % 12;
 
-                    // --- REGISTER/OCTAVE SELECTION ---
                     std::vector<float> valid_freqs;
                     const float MIN_FREQ = 100.0f;
                     const float MAX_FREQ = 1000.0f;
@@ -286,13 +350,11 @@ int main(int argc, char* argv[]) {
                         }
                     }
 
-                    // Weight towards the middle registers using a normal distribution
                     float mid_register = (valid_freqs.size() - 1) / 2.0f;
                     std::normal_distribution<float> oct_dist(mid_register, 0.8f);
                     int chosen_oct_idx = static_cast<int>(std::round(oct_dist(gen)));
                     chosen_oct_idx = std::clamp(chosen_oct_idx, 0, static_cast<int>(valid_freqs.size() - 1));
 
-                    // --- GENERATE AUDIO CHIME ---
                     ChimeConfig chime;
                     chime.pitch = valid_freqs[chosen_oct_idx];
                     chime.volume = audio_vol_dist(gen);
@@ -307,12 +369,10 @@ int main(int argc, char* argv[]) {
                     }
                     audio.play_chime(chime);
 
-                    // --- GENERATE RIPPLES ---
                     float current_ripple_size = ripple_size_dist(gen);
                     float current_ripple_mag = ripple_mag_dist(gen);
                     sim.add_drop(drop_x, drop_z, current_ripple_size, current_ripple_mag);
 
-                    // --- GENERATE SYNCHRONIZED LIGHT ---
                     AnimatedLight light;
                     float offset_x = pos_dist(gen) * 0.3f;
                     float offset_z = pos_dist(gen) * 0.3f;
@@ -324,6 +384,7 @@ int main(int argc, char* argv[]) {
                     
                     lights.push_back(light);
 
+                    // Resample using regular Poisson process
                     timers[i].sample_next(gen, arrival_dist);
                 }
             }
@@ -352,26 +413,46 @@ int main(int argc, char* argv[]) {
             glm::vec3 cam_pos(0.0f, 2.0f, 0.0f);
             glm::mat4 view = glm::lookAt(cam_pos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f));
 
-            glm::mat4 proj;
-            if (aspect >= 1.0f) {
-                proj = glm::ortho(-0.5f * aspect, 0.5f * aspect, -0.5f, 0.5f, 0.1f, 10.0f);
-            } else {
-                proj = glm::ortho(-0.5f, 0.5f, -0.5f / aspect, 0.5f / aspect, 0.1f, 10.0f);
-            }
+            // --- REQUIREMENT 4: Physical scene view locked in world units ---
+            const float SCENE_HALF_SIZE = 1.0f;
+            glm::mat4 proj = glm::ortho(-SCENE_HALF_SIZE * aspect, 
+                                         SCENE_HALF_SIZE * aspect, 
+                                        -SCENE_HALF_SIZE, 
+                                         SCENE_HALF_SIZE, 
+                                         0.1f, 10.0f);
 
             renderer.render(mesh, view, proj, cam_pos, active_light_data);
 
-            if (show_center_dot) {
-                glDisable(GL_DEPTH_TEST);
+            // --- REQUIREMENT 5.1: Fade title screen over 8 seconds ---
+            if (total_time_elapsed < 8.0f) {
+                float title_alpha = std::clamp((8.0f - total_time_elapsed) / 8.0f, 0.0f, 1.0f);
                 
+                glDisable(GL_DEPTH_TEST);
                 glEnable(GL_BLEND);
                 glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-                glUseProgram(dot_shader);
                 
-                float dot_radius = 4.5f;
+                glUseProgram(title_shader);
+                glUniform1f(glGetUniformLocation(title_shader, "u_alpha"), title_alpha);
+                
+                glBindVertexArray(title_vao);
+                glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+                glBindVertexArray(0);
+                
+                glDisable(GL_BLEND);
+                glEnable(GL_DEPTH_TEST);
+            }
+
+            // --- REQUIREMENT 3: Antialiased Center Dot ---
+            if (show_center_dot) {
+                glDisable(GL_DEPTH_TEST);
+                glEnable(GL_BLEND);
+                glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                
+                glUseProgram(dot_shader);
+                float dot_radius_px = 6.0f;
                 glUniform2f(glGetUniformLocation(dot_shader, "scale"), 
-                            (dot_radius * 2.0f) / (float)display_w, 
-                            (dot_radius * 2.0f) / (float)display_h);
+                            (dot_radius_px * 2.0f) / (float)display_w, 
+                            (dot_radius_px * 2.0f) / (float)display_h);
 
                 glBindVertexArray(dot_vao);
                 glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);

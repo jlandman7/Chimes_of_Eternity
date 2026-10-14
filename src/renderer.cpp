@@ -54,7 +54,7 @@ void main() {
     vec3 N = normalize(Normal);
     vec3 V = vec3(0.0, 1.0, 0.0);
     
-    vec3 totalSpecular = vec3(0.0);
+    vec3 totalLight = vec3(0.0);
 
     for (int i = 0; i < u_numLights; ++i) {
         if (u_lights[i].intensity <= 0.0001) continue;
@@ -66,22 +66,31 @@ void main() {
 
         float NdotL = max(dot(N, L), 0.0);
         float NdotV = max(dot(N, V), 0.0);
-        // Clamp NdotH above 0.0001 to prevent WebGL pow(0.0, y) NaN bugs
         float NdotH = max(dot(N, H), 0.0001);
 
         float atten = 1.0 / (1.0 + 0.8 * dist + 0.4 * dist * dist);
 
+        // Water Fresnel (IOR = 1.333)
         float F0 = 0.02;
         float fresnel = F0 + (1.0 - F0) * pow(clamp(1.0 - NdotV, 0.0, 1.0), 5.0);
 
-        float shininess = 192.0;
-        float specFactor = ((shininess + 8.0) / (8.0 * 3.14159265)) * pow(NdotH, shininess);
+        // Diffuse light (illuminates water surface ripples)
+        vec3 diffuse = u_lights[i].color * u_lights[i].intensity * NdotL * atten * 2.5;
 
-        vec3 spec = u_lights[i].color * u_lights[i].intensity * specFactor * NdotL * fresnel * atten * 3.0;
-        totalSpecular += spec;
+        // Specular glint
+        float shininess = 64.0;
+        float specFactor = pow(NdotH, shininess);
+        vec3 spec = u_lights[i].color * u_lights[i].intensity * specFactor * fresnel * atten * 4.0;
+
+        totalLight += diffuse + spec;
     }
 
-    vec3 finalColor = totalSpecular / (totalSpecular + vec3(1.0));
+    // Dark abyss ambient base
+    vec3 ambient = vec3(0.005, 0.01, 0.02);
+    vec3 finalColor = ambient + totalLight;
+
+    // Tone mapping & gamma correction
+    finalColor = finalColor / (finalColor + vec3(1.0));
     finalColor = pow(max(finalColor, vec3(0.0)), vec3(1.0 / 2.2));
 
     FragColor = vec4(finalColor, 1.0);
@@ -129,7 +138,7 @@ void main() {
     vec3 N = normalize(Normal);
     vec3 V = vec3(0.0, 1.0, 0.0);
     
-    vec3 totalSpecular = vec3(0.0);
+    vec3 totalLight = vec3(0.0);
 
     for (int i = 0; i < u_numLights; ++i) {
         if (u_lights[i].intensity <= 0.0001) continue;
@@ -141,22 +150,27 @@ void main() {
 
         float NdotL = max(dot(N, L), 0.0);
         float NdotV = max(dot(N, V), 0.0);
-        float NdotH = max(dot(N, H), 0.0);
+        float NdotH = max(dot(N, H), 0.0001);
 
         float atten = 1.0 / (1.0 + 0.8 * dist + 0.4 * dist * dist);
 
         float F0 = 0.02;
         float fresnel = F0 + (1.0 - F0) * pow(clamp(1.0 - NdotV, 0.0, 1.0), 5.0);
 
-        float shininess = 192.0;
-        float specFactor = ((shininess + 8.0) / (8.0 * 3.14159265)) * pow(NdotH, shininess);
+        vec3 diffuse = u_lights[i].color * u_lights[i].intensity * NdotL * atten * 2.5;
 
-        vec3 spec = u_lights[i].color * u_lights[i].intensity * specFactor * NdotL * fresnel * atten * 3.0;
-        totalSpecular += spec;
+        float shininess = 64.0;
+        float specFactor = pow(NdotH, shininess);
+        vec3 spec = u_lights[i].color * u_lights[i].intensity * specFactor * fresnel * atten * 4.0;
+
+        totalLight += diffuse + spec;
     }
 
-    vec3 finalColor = totalSpecular / (totalSpecular + vec3(1.0));
-    finalColor = pow(finalColor, vec3(1.0 / 2.2));
+    vec3 ambient = vec3(0.005, 0.01, 0.02);
+    vec3 finalColor = ambient + totalLight;
+
+    finalColor = finalColor / (finalColor + vec3(1.0));
+    finalColor = pow(max(finalColor, vec3(0.0)), vec3(1.0 / 2.2));
 
     FragColor = vec4(finalColor, 1.0);
 }
